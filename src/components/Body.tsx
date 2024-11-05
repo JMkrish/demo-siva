@@ -2,6 +2,7 @@ import { Container, Flex, Text } from "@chakra-ui/react";
 import { Login } from "./Login";
 import { Registration } from "./Registration";
 import { UserProfile } from "./UserProfile";
+import Home from "./Home";
 
 interface BodyProps {
   currentView: string;
@@ -21,13 +22,7 @@ export function Body({ currentView, onNavigate, onLoginSuccess }: BodyProps) {
       case "profile":
         return <UserProfile onNavigate={onNavigate} />;
       default:
-        return (
-          <Flex align="center" justify="center" w="100%">
-            <Text color="black" fontSize="xl" align="center">
-              Body
-            </Text>
-          </Flex>
-        );
+        return <Home />;
     }
   };
 
