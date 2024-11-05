@@ -1,15 +1,19 @@
 import { Container, Flex, Text } from "@chakra-ui/react";
 import { Login } from "./Login";
+import { Registration } from "./Registration";
 
 interface BodyProps {
   currentView: string;
+  onNavigate: (view: string) => void;
 }
 
-export function Body({ currentView }: BodyProps) {
+export function Body({ currentView, onNavigate }: BodyProps) {
   const renderContent = () => {
     switch (currentView) {
       case "login":
-        return <Login />;
+        return <Login onNavigate={onNavigate} />;
+      case "register":
+        return <Registration />;
       default:
         return (
           <Flex align="center" justify="center" w="100%">

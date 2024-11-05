@@ -2,7 +2,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { NavBar } from "./components/NavBar";
 import { Body } from "./components/Body";
 import { Footer } from "./components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
       </GridItem>
 
       <GridItem area="body" bg="white" p={4}>
-        <Body currentView={currentView} />
+        <Body currentView={currentView} onNavigate={handleNavigation} />
       </GridItem>
 
       <GridItem area="footer" bg="blackAlpha.800" p={4}>

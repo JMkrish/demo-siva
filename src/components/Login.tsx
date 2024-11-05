@@ -14,7 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 
-export function Login() {
+interface LoginProps {
+  onNavigate?: (view: string) => void;
+}
+
+export function Login({ onNavigate }: LoginProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -143,8 +147,7 @@ export function Login() {
                 First-time users, please register here.
               </Text>
               <Button
-                as="a"
-                href="Registration.aspx"
+                onClick={() => onNavigate?.('register')}
                 colorScheme="green"
                 width="100%"
               >
