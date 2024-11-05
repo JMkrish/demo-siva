@@ -16,6 +16,7 @@ import {
   InputGroup,
   InputLeftElement,
   Image,
+  Divider,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { PhoneIcon, EmailIcon, AddIcon } from '@chakra-ui/icons';
@@ -45,6 +46,9 @@ interface FormDataType {
   mailZipExt: string;
   mailCounty: string;
   profileImage: File | null;
+  primaryPhone: string;
+  cellPhone: string;
+  confirmEmail: string;
 }
 
 export function Registration() {
@@ -73,6 +77,9 @@ export function Registration() {
     mailZipExt: "",
     mailCounty: "",
     profileImage: null,
+    primaryPhone: "",
+    cellPhone: "",
+    confirmEmail: "",
   });
 
   const [sameAsResidential, setSameAsResidential] = useState(false);
@@ -137,6 +144,12 @@ export function Registration() {
     if (!formData.dob) newErrors.dob = "Date of birth is required";
     if (!formData.gender) newErrors.gender = "Gender is required";
     
+    if (!formData.confirmEmail) {
+      newErrors.confirmEmail = "Please confirm your email";
+    } else if (formData.email !== formData.confirmEmail) {
+      newErrors.confirmEmail = "Emails do not match";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -180,9 +193,11 @@ export function Registration() {
             >
               <Heading as="h3" size="md">Personal Information</Heading>
               
+              <Divider my={6} borderColor="gray.300" />
+
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl isRequired isInvalid={!!errors.firstName}>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel fontSize="sm">First Name</FormLabel>
                   <Input
                     name="firstName"
                     value={formData.firstName}
@@ -195,7 +210,7 @@ export function Registration() {
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Middle Name</FormLabel>
+                  <FormLabel fontSize="sm">Middle Name</FormLabel>
                   <Input
                     name="middleName"
                     value={formData.middleName}
@@ -207,7 +222,7 @@ export function Registration() {
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl isRequired isInvalid={!!errors.lastName}>
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel fontSize="sm">Last Name</FormLabel>
                   <Input
                     name="lastName"
                     value={formData.lastName}
@@ -220,7 +235,7 @@ export function Registration() {
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Suffix</FormLabel>
+                  <FormLabel fontSize="sm">Suffix</FormLabel>
                   <Input
                     name="suffix"
                     value={formData.suffix}
@@ -232,7 +247,7 @@ export function Registration() {
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl isRequired isInvalid={!!errors.dob}>
-                  <FormLabel>Date of Birth (MM/DD/YYYY)</FormLabel>
+                  <FormLabel fontSize="sm">Date of Birth (MM/DD/YYYY)</FormLabel>
                   <Input
                     name="dob"
                     type="date"
@@ -245,7 +260,7 @@ export function Registration() {
                 </FormControl>
 
                 <FormControl isRequired isInvalid={!!errors.gender}>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel fontSize="sm">Gender</FormLabel>
                   <Select
                     name="gender"
                     value={formData.gender}
@@ -262,49 +277,274 @@ export function Registration() {
                 </FormControl>
               </SimpleGrid>
 
-              <FormControl isRequired isInvalid={!!errors.email}>
-                <FormLabel>Email</FormLabel>
-                <InputGroup>
-                  <InputLeftElement children={<EmailIcon />} />
-                  <Input
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter email"
-                  />
-                </InputGroup>
-                {errors.email && (
-                  <Text color="red.500" fontSize="sm">{errors.email}</Text>
-                )}
-              </FormControl>
+              {/* Contact Information Section */}
+              <Heading as="h3" size="md">Contact Information</Heading>
+              
+              <Divider my={6} borderColor="gray.300" />
 
-              <FormControl>
-                <FormLabel>Phone Number</FormLabel>
-                <InputGroup>
-                  <InputLeftElement children={<PhoneIcon />} />
-                  <Input
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Enter phone number"
-                  />
-                </InputGroup>
-              </FormControl>
+              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                <FormControl>
+                  <FormLabel fontSize="sm">Primary Phone Number</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement children={<PhoneIcon />} />
+                    <Input
+                      name="primaryPhone"
+                      type="tel"
+                      value={formData.primaryPhone}
+                      onChange={handleChange}
+                      placeholder="Enter primary phone number"
+                    />
+                  </InputGroup>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel fontSize="sm">Cell Phone</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement children={<PhoneIcon />} />
+                    <Input
+                      name="cellPhone"
+                      type="tel"
+                      value={formData.cellPhone}
+                      onChange={handleChange}
+                      placeholder="Enter cell phone number"
+                    />
+                  </InputGroup>
+                </FormControl>
+              </SimpleGrid>
+
+              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                <FormControl isRequired isInvalid={!!errors.email}>
+                  <FormLabel fontSize="sm">Email</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement children={<EmailIcon />} />
+                    <Input
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter email"
+                    />
+                  </InputGroup>
+                  {errors.email && (
+                    <Text color="red.500" fontSize="sm">{errors.email}</Text>
+                  )}
+                </FormControl>
+
+                <FormControl isRequired isInvalid={!!errors.confirmEmail}>
+                  <FormLabel fontSize="sm">Confirm Email</FormLabel>
+                  <InputGroup>
+                    <InputLeftElement children={<EmailIcon />} />
+                    <Input
+                      name="confirmEmail"
+                      type="email"
+                      value={formData.confirmEmail}
+                      onChange={handleChange}
+                      placeholder="Confirm your email"
+                    />
+                  </InputGroup>
+                  {errors.confirmEmail && (
+                    <Text color="red.500" fontSize="sm">{errors.confirmEmail}</Text>
+                  )}
+                </FormControl>
+              </SimpleGrid>
 
               {/* Residential Address Section */}
-              <Heading as="h3" size="md" mt={6}>Residential Address</Heading>
-              {/* Add residential address fields here */}
+              <Heading as="h3" size="md">Residential Address</Heading>
+              
+              <Divider my={6} borderColor="gray.300" />
+
+              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                <FormControl isRequired>
+                  <FormLabel fontSize="sm">Street Address</FormLabel>
+                  <Input
+                    name="address1"
+                    value={formData.address1}
+                    onChange={handleChange}
+                    placeholder="Street Address"
+                  />
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel fontSize="sm">Apartment/Suite/Building#</FormLabel>
+                  <Input
+                    name="address2"
+                    value={formData.address2}
+                    onChange={handleChange}
+                    placeholder="Apartment/Suite/Building#"
+                  />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel fontSize="sm">City</FormLabel>
+                  <Input
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    placeholder="City"
+                  />
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel fontSize="sm">State</FormLabel>
+                  <Select
+                    name="state"
+                    value={formData.state}
+                    onChange={handleChange}
+                    placeholder="Select state"
+                  >
+                    <option value="MA">Massachusetts</option>
+                    <option value="NY">New York</option>
+                    <option value="CA">California</option>
+                    {/* Add more states as needed */}
+                  </Select>
+                </FormControl>
+
+                <FormControl isRequired>
+                  <FormLabel fontSize="sm">Zip Code</FormLabel>
+                  <HStack>
+                    <Input
+                      name="zipCode"
+                      value={formData.zipCode}
+                      onChange={handleChange}
+                      placeholder="Zip Code"
+                      maxLength={5}
+                    />
+                    <Text>-</Text>
+                    <Input
+                      name="zipExt"
+                      value={formData.zipExt}
+                      onChange={handleChange}
+                      placeholder="Extension"
+                      maxLength={4}
+                      w="100px"
+                    />
+                  </HStack>
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel fontSize="sm">County</FormLabel>
+                  <Select
+                    name="county"
+                    value={formData.county}
+                    onChange={handleChange}
+                    placeholder="Select county"
+                  >
+                    <option value="middlesex">Middlesex</option>
+                    <option value="suffolk">Suffolk</option>
+                    {/* Add more counties as needed */}
+                  </Select>
+                </FormControl>
+              </SimpleGrid>
 
               {/* Mailing Address Section */}
-              <Heading as="h3" size="md" mt={6}>
-                Mailing Address
-                <Checkbox ml={4} onChange={handleSameAddress}>
-                  Same as residential address
-                </Checkbox>
-              </Heading>
-              {/* Add mailing address fields here */}
+              <Box mt={6}>
+                <VStack align="start" w="100%" mb={4} spacing={2}>
+                  <Heading as="h3" size="md">Mailing Address</Heading>
+                  <Checkbox 
+                    isChecked={sameAsResidential}
+                    onChange={handleSameAddress}
+                    colorScheme="blue"
+                    size="lg"
+                  >
+                    <Text fontSize="sm">Check if same as the address above</Text>
+                  </Checkbox>
+                </VStack>
+
+                <Divider my={6} borderColor="gray.300" />
+
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                  <FormControl isRequired>
+                    <FormLabel fontSize="sm">Street Address</FormLabel>
+                    <Input
+                      name="mailAddress1"
+                      value={sameAsResidential ? formData.address1 : formData.mailAddress1}
+                      onChange={handleChange}
+                      placeholder="Street Address"
+                      isDisabled={sameAsResidential}
+                    />
+                  </FormControl>
+
+                  <FormControl>
+                    <FormLabel fontSize="sm">Apartment/Suite/Building#</FormLabel>
+                    <Input
+                      name="mailAddress2"
+                      value={sameAsResidential ? formData.address2 : formData.mailAddress2}
+                      onChange={handleChange}
+                      placeholder="Apartment/Suite/Building#"
+                      isDisabled={sameAsResidential}
+                    />
+                  </FormControl>
+
+                  <FormControl isRequired>
+                    <FormLabel fontSize="sm">City</FormLabel>
+                    <Input
+                      name="mailCity"
+                      value={sameAsResidential ? formData.city : formData.mailCity}
+                      onChange={handleChange}
+                      placeholder="City"
+                      isDisabled={sameAsResidential}
+                    />
+                  </FormControl>
+
+                  <FormControl isRequired>
+                    <FormLabel fontSize="sm">State</FormLabel>
+                    <Select
+                      name="mailState"
+                      value={sameAsResidential ? formData.state : formData.mailState}
+                      onChange={handleChange}
+                      placeholder="Select state"
+                      isDisabled={sameAsResidential}
+                    >
+                      <option value="MA">Massachusetts</option>
+                      <option value="NY">New York</option>
+                      <option value="CA">California</option>
+                      {/* Add more states as needed */}
+                    </Select>
+                  </FormControl>
+
+                  <FormControl isRequired>
+                    <FormLabel fontSize="sm">Zip Code</FormLabel>
+                    <HStack>
+                      <Input
+                        name="mailZipCode"
+                        value={sameAsResidential ? formData.zipCode : formData.mailZipCode}
+                        onChange={handleChange}
+                        placeholder="Zip Code"
+                        maxLength={5}
+                        isDisabled={sameAsResidential}
+                      />
+                      <Text>-</Text>
+                      <Input
+                        name="mailZipExt"
+                        value={sameAsResidential ? formData.zipExt : formData.mailZipExt}
+                        onChange={handleChange}
+                        placeholder="Extension"
+                        maxLength={4}
+                        w="100px"
+                        isDisabled={sameAsResidential}
+                      />
+                    </HStack>
+                  </FormControl>
+
+                  <FormControl>
+                    <FormLabel fontSize="sm">County</FormLabel>
+                    <Select
+                      name="mailCounty"
+                      value={sameAsResidential ? formData.county : formData.mailCounty}
+                      onChange={handleChange}
+                      placeholder="Select county"
+                      isDisabled={sameAsResidential}
+                    >
+                      <option value="middlesex">Middlesex</option>
+                      <option value="suffolk">Suffolk</option>
+                      {/* Add more counties as needed */}
+                    </Select>
+                  </FormControl>
+                </SimpleGrid>
+              </Box>
+
+              <Divider my={6} borderColor="gray.300" />
+
             </VStack>
 
             {/* Right Column - Profile Image */}
@@ -333,7 +573,7 @@ export function Registration() {
                 />
               </Box>
               <FormControl>
-                <FormLabel>Profile Image</FormLabel>
+                <FormLabel fontSize="sm">Profile Image</FormLabel>
                 <Input
                   type="file"
                   accept="image/*"
