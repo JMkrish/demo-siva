@@ -7,8 +7,13 @@ import {
   Avatar,
   SimpleGrid,
   Divider,
+  Icon,
+  Button,
+  Link,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { dashboardTiles } from "../data/dashboardData";
+import type { DashboardTile } from "../data/dashboardData";
 
 interface UserProfileProps {
   onNavigate?: (view: string) => void;
@@ -31,45 +36,72 @@ export function UserProfile({ onNavigate }: UserProfileProps) {
   return (
     <Container maxW="6xl" py={8}>
       <VStack spacing={8}>
-        <Heading size="lg">User Profile</Heading>
-
         <Box w="full" p={8} borderWidth={1} borderRadius="lg" shadow="md">
-          <VStack spacing={6} align="stretch">
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-              <Box>
-                <Avatar
-                  size="2xl"
-                  name={`${userData.firstName} ${userData.lastName}`}
-                />
-              </Box>
-              <Box>
-                <Heading size="md" mb={4}>
-                  Personal Information
-                </Heading>
-                <Text>
-                  <strong>Name:</strong> {userData.firstName}{" "}
-                  {userData.lastName}
-                </Text>
-                <Text>
-                  <strong>Email:</strong> {userData.email}
-                </Text>
-              </Box>
-            </SimpleGrid>
-
-            <Divider />
-
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} mb={8}>
+            <Box>
+              <Avatar
+                size="2xl"
+                name={`${userData.firstName} ${userData.lastName}`}
+              />
+            </Box>
             <Box>
               <Heading size="md" mb={4}>
-                Account Status
+                Welcome, {userData.firstName}!
               </Heading>
+              <Text>
+                <strong>Email:</strong> {userData.email}
+              </Text>
               <Text>
                 <strong>Status:</strong> Active
               </Text>
-              <Text>
-                <strong>Member Since:</strong> {new Date().toLocaleDateString()}
-              </Text>
             </Box>
-          </VStack>
+          </SimpleGrid>
+
+          <Divider mb={8} />
+
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={6}>
+            {dashboardTiles.map((tile, index) => (
+              <Box
+                key={index}
+                p={4}
+                borderWidth={1}
+                borderRadius="lg"
+                shadow="sm"
+                _hover={{ shadow: "md", transform: "translateY(-2px)" }}
+                transition="all 0.2s"
+              >
+                <VStack spacing={3} align="stretch" h="100%">
+                  <Icon as={tile.icon} boxSize={8} color="blue.500" />
+                  <Heading size="sm" color="blue.800">
+                    {tile.title}
+                  </Heading>
+                  <Text fontSize="sm" color="gray.600" noOfLines={3}>
+                    {tile.description}
+                  </Text>
+                  <Box mt="auto" pt={2}>
+                    <Button
+                      size="sm"
+                      colorScheme="blue"
+                      width="100%"
+                      onClick={() => window.location.href = tile.link}
+                    >
+                      Select
+                    </Button>
+                    <Link
+                      href={tile.helpLink}
+                      fontSize="sm"
+                      color="gray.500"
+                      display="block"
+                      textAlign="center"
+                      mt={2}
+                    >
+                      Help
+                    </Link>
+                  </Box>
+                </VStack>
+              </Box>
+            ))}
+          </SimpleGrid>
         </Box>
       </VStack>
     </Container>
