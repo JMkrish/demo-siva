@@ -27,7 +27,7 @@ export function Body({ currentView, onNavigate, onLoginSuccess }: BodyProps) {
   };
 
   return (
-    <Container maxW="6xl" w="100%">
+    <Container maxW="100%" w="100%">
       {renderContent()}
     </Container>
   );
