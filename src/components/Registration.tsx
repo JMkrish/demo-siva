@@ -53,6 +53,13 @@ interface FormDataType {
   confirmPassword: string;
 }
 
+interface UserCredentials {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
 export function Registration() {
   const toast = useToast();
   const [formData, setFormData] = useState<FormDataType>({
@@ -175,14 +182,50 @@ export function Registration() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
+      const credentials: UserCredentials = {
+        email: formData.email,
+        password: formData.password,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+      };
+
+      const existingUsers = JSON.parse(
+        localStorage.getItem("registeredUsers") || "[]"
+      );
+
+      if (
+        existingUsers.some(
+          (user: UserCredentials) => user.email === credentials.email
+        )
+      ) {
+        toast({
+          title: "Registration Failed",
+          description: "An account with this email already exists.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+        return;
+      }
+
+      existingUsers.push(credentials);
+
+      localStorage.setItem("registeredUsers", JSON.stringify(existingUsers));
+
       console.log("Form data:", formData);
       toast({
         title: "Registration Successful",
-        description: "Your profile has been created successfully.",
+        description:
+          "Your profile has been created successfully. You can now login.",
         status: "success",
         duration: 5000,
         isClosable: true,
       });
+
+      console.log(
+        "Stored users:",
+        JSON.parse(localStorage.getItem("registeredUsers") || "[]")
+      );
     }
   };
 

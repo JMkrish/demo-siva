@@ -17,11 +17,23 @@ import logo from "../assets/images/harvard-fac.webp";
 
 interface NavBarProps {
   onNavigate: (view: string) => void;
+  isLoggedIn?: boolean;
+  onLogout?: () => void;
 }
 
-export function NavBar({ onNavigate }: NavBarProps) {
+export function NavBar({ onNavigate, isLoggedIn, onLogout }: NavBarProps) {
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    onLogout?.();
+    onNavigate("login");
+  };
+
   const navItems = [
-    { label: "Home", href: "#", onClick: () => onNavigate("home") },
+    {
+      label: isLoggedIn ? "Profile" : "Home",
+      href: "#",
+      onClick: () => onNavigate(isLoggedIn ? "profile" : "home"),
+    },
     { label: "Courses", href: "#", onClick: () => onNavigate("courses") },
     {
       label: "Certificates",
@@ -29,7 +41,11 @@ export function NavBar({ onNavigate }: NavBarProps) {
       onClick: () => onNavigate("certificates"),
     },
     { label: "HELP", href: "#", onClick: () => onNavigate("help") },
-    { label: "Login", href: "#", onClick: () => onNavigate("login") },
+    {
+      label: isLoggedIn ? "Logout" : "Login",
+      href: "#",
+      onClick: () => (isLoggedIn ? handleLogout() : onNavigate("login")),
+    },
   ];
 
   return (

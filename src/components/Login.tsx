@@ -8,18 +8,19 @@ import {
   VStack,
   Heading,
   Text,
-  Checkbox,
   Link,
   Divider,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 interface LoginProps {
   onNavigate?: (view: string) => void;
+  onLoginSuccess?: (userData: any) => void;
 }
 
-export function Login({ onNavigate }: LoginProps) {
-  const [showPassword, setShowPassword] = useState(false);
+export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
+  const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -27,7 +28,6 @@ export function Login({ onNavigate }: LoginProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Validation logic
     let isValid = true;
 
     if (!email) {
@@ -48,7 +48,34 @@ export function Login({ onNavigate }: LoginProps) {
     }
 
     if (isValid) {
-      console.log("Login attempted");
+      const registeredUsers = JSON.parse(
+        localStorage.getItem("registeredUsers") || "[]"
+      );
+      const user = registeredUsers.find(
+        (u: any) => u.email === email && u.password === password
+      );
+
+      if (user) {
+        toast({
+          title: "Login Successful",
+          description: `Welcome back, ${user.firstName}!`,
+          status: "success",
+          duration: 3000,
+        });
+
+        localStorage.setItem("currentUser", JSON.stringify(user));
+
+        onLoginSuccess?.(user);
+
+        onNavigate?.("profile");
+      } else {
+        toast({
+          title: "Login Failed",
+          description: "Invalid email or password",
+          status: "error",
+          duration: 3000,
+        });
+      }
     }
   };
 
@@ -96,7 +123,7 @@ export function Login({ onNavigate }: LoginProps) {
               <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -106,12 +133,6 @@ export function Login({ onNavigate }: LoginProps) {
                   {passwordError}
                 </Text>
               )}
-              <Checkbox
-                mt={2}
-                onChange={(e) => setShowPassword(e.target.checked)}
-              >
-                Show password
-              </Checkbox>
             </FormControl>
 
             <VStack align="stretch" w="100%" spacing={2}>
