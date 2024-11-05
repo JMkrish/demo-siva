@@ -49,6 +49,8 @@ interface FormDataType {
   primaryPhone: string;
   cellPhone: string;
   confirmEmail: string;
+  password: string;
+  confirmPassword: string;
 }
 
 export function Registration() {
@@ -80,6 +82,8 @@ export function Registration() {
     primaryPhone: "",
     cellPhone: "",
     confirmEmail: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [sameAsResidential, setSameAsResidential] = useState(false);
@@ -150,6 +154,18 @@ export function Registration() {
       newErrors.confirmEmail = "Please confirm your email";
     } else if (formData.email !== formData.confirmEmail) {
       newErrors.confirmEmail = "Emails do not match";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters long";
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Please confirm your password";
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
     }
 
     setErrors(newErrors);
@@ -361,6 +377,40 @@ export function Registration() {
                   {errors.confirmEmail && (
                     <Text color="red.500" fontSize="sm">
                       {errors.confirmEmail}
+                    </Text>
+                  )}
+                </FormControl>
+              </SimpleGrid>
+
+              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                <FormControl isRequired isInvalid={!!errors.password}>
+                  <FormLabel fontSize="sm">Password</FormLabel>
+                  <Input
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter password"
+                  />
+                  {errors.password && (
+                    <Text color="red.500" fontSize="sm">
+                      {errors.password}
+                    </Text>
+                  )}
+                </FormControl>
+
+                <FormControl isRequired isInvalid={!!errors.confirmPassword}>
+                  <FormLabel fontSize="sm">Confirm Password</FormLabel>
+                  <Input
+                    name="confirmPassword"
+                    type="password"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    placeholder="Confirm your password"
+                  />
+                  {errors.confirmPassword && (
+                    <Text color="red.500" fontSize="sm">
+                      {errors.confirmPassword}
                     </Text>
                   )}
                 </FormControl>
