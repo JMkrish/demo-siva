@@ -26,7 +26,7 @@ export function Body({ currentView, onNavigate }: BodyProps) {
   };
 
   return (
-    <Container maxW="1280px" w="100%">
+    <Container maxW="6xl" w="100%">
       {renderContent()}
     </Container>
   );

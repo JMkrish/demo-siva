@@ -53,7 +53,7 @@ export function Login({ onNavigate }: LoginProps) {
   };
 
   return (
-    <Container maxW="1280px" py={8}>
+    <Container maxW="6xl" py={8}>
       {/* Title Section */}
       <VStack spacing={4} mb={8}>
         <Text color="red" fontSize="lg"></Text>
@@ -147,7 +147,7 @@ export function Login({ onNavigate }: LoginProps) {
                 First-time users, please register here.
               </Text>
               <Button
-                onClick={() => onNavigate?.('register')}
+                onClick={() => onNavigate?.("register")}
                 colorScheme="green"
                 width="100%"
               >

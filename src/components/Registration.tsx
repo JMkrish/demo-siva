@@ -19,7 +19,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { PhoneIcon, EmailIcon, AddIcon } from '@chakra-ui/icons';
+import { PhoneIcon, EmailIcon, AddIcon } from "@chakra-ui/icons";
 import defaultAvatar from "../assets/images/default-avatar.png";
 
 interface FormDataType {
@@ -86,11 +86,13 @@ export function Registration() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [imagePreview, setImagePreview] = useState(defaultAvatar);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
@@ -98,7 +100,7 @@ export function Registration() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.type.match(/image\/(jpeg|jpg|png|gif)/)) {
-        setFormData(prev => ({ ...prev, profileImage: file }));
+        setFormData((prev) => ({ ...prev, profileImage: file }));
         const reader = new FileReader();
         reader.onload = (e) => {
           setImagePreview(e.target?.result as string);
@@ -118,7 +120,7 @@ export function Registration() {
   const handleSameAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSameAsResidential(e.target.checked);
     if (e.target.checked) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         mailAddress1: prev.address1,
         mailAddress2: prev.address2,
@@ -133,7 +135,7 @@ export function Registration() {
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.firstName) newErrors.firstName = "First name is required";
     if (!formData.lastName) newErrors.lastName = "Last name is required";
     if (!formData.email) {
@@ -143,7 +145,7 @@ export function Registration() {
     }
     if (!formData.dob) newErrors.dob = "Date of birth is required";
     if (!formData.gender) newErrors.gender = "Gender is required";
-    
+
     if (!formData.confirmEmail) {
       newErrors.confirmEmail = "Please confirm your email";
     } else if (formData.email !== formData.confirmEmail) {
@@ -169,31 +171,31 @@ export function Registration() {
   };
 
   return (
-    <Container maxW="1280px" py={8}>
+    <Container maxW="6xl" py={8}>
       <VStack spacing={4} mb={8}>
         <Heading as="h2" size="lg" textAlign="center">
           Personal Profile
         </Heading>
-        <Text color="red.500" fontWeight="bold">
-          Name, DOB, Gender and email address cannot be changed after creating the profile except by Admin.
-        </Text>
       </VStack>
 
       <Box maxW="6xl" mx="auto" borderWidth={1} borderRadius="lg" p={8}>
+        <Text color="red.500" fontWeight="bold">
+          Name, DOB, Gender and email address cannot be changed after creating
+          the profile except by Admin.
+        </Text>
         <form onSubmit={handleSubmit}>
-          <SimpleGrid 
-            columns={{ base: 1, md: 3 }}
-            spacing={8}
-          >
+          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
             {/* Left Column - Form Fields */}
-            <VStack 
-              spacing={6} 
+            <VStack
+              spacing={6}
               align="stretch"
               gridColumn={{ base: "1", md: "span 2" }}
             >
-              <Heading as="h3" size="md">Personal Information</Heading>
-              
-              <Divider my={6} borderColor="gray.300" />
+              <Divider my={3} borderColor="gray.300" />
+
+              <Heading as="h3" size="md">
+                Personal Information
+              </Heading>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl isRequired isInvalid={!!errors.firstName}>
@@ -205,7 +207,9 @@ export function Registration() {
                     placeholder="Enter first name"
                   />
                   {errors.firstName && (
-                    <Text color="red.500" fontSize="sm">{errors.firstName}</Text>
+                    <Text color="red.500" fontSize="sm">
+                      {errors.firstName}
+                    </Text>
                   )}
                 </FormControl>
 
@@ -230,7 +234,9 @@ export function Registration() {
                     placeholder="Enter last name"
                   />
                   {errors.lastName && (
-                    <Text color="red.500" fontSize="sm">{errors.lastName}</Text>
+                    <Text color="red.500" fontSize="sm">
+                      {errors.lastName}
+                    </Text>
                   )}
                 </FormControl>
 
@@ -247,7 +253,9 @@ export function Registration() {
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl isRequired isInvalid={!!errors.dob}>
-                  <FormLabel fontSize="sm">Date of Birth (MM/DD/YYYY)</FormLabel>
+                  <FormLabel fontSize="sm">
+                    Date of Birth (MM/DD/YYYY)
+                  </FormLabel>
                   <Input
                     name="dob"
                     type="date"
@@ -255,7 +263,9 @@ export function Registration() {
                     onChange={handleChange}
                   />
                   {errors.dob && (
-                    <Text color="red.500" fontSize="sm">{errors.dob}</Text>
+                    <Text color="red.500" fontSize="sm">
+                      {errors.dob}
+                    </Text>
                   )}
                 </FormControl>
 
@@ -272,15 +282,19 @@ export function Registration() {
                     <option value="other">Other/Prefer Not to Answer</option>
                   </Select>
                   {errors.gender && (
-                    <Text color="red.500" fontSize="sm">{errors.gender}</Text>
+                    <Text color="red.500" fontSize="sm">
+                      {errors.gender}
+                    </Text>
                   )}
                 </FormControl>
               </SimpleGrid>
 
               {/* Contact Information Section */}
-              <Heading as="h3" size="md">Contact Information</Heading>
-              
-              <Divider my={6} borderColor="gray.300" />
+              <Divider my={3} borderColor="gray.300" />
+
+              <Heading as="h3" size="md">
+                Contact Information
+              </Heading>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl>
@@ -326,7 +340,9 @@ export function Registration() {
                     />
                   </InputGroup>
                   {errors.email && (
-                    <Text color="red.500" fontSize="sm">{errors.email}</Text>
+                    <Text color="red.500" fontSize="sm">
+                      {errors.email}
+                    </Text>
                   )}
                 </FormControl>
 
@@ -343,15 +359,19 @@ export function Registration() {
                     />
                   </InputGroup>
                   {errors.confirmEmail && (
-                    <Text color="red.500" fontSize="sm">{errors.confirmEmail}</Text>
+                    <Text color="red.500" fontSize="sm">
+                      {errors.confirmEmail}
+                    </Text>
                   )}
                 </FormControl>
               </SimpleGrid>
 
               {/* Residential Address Section */}
-              <Heading as="h3" size="md">Residential Address</Heading>
-              
-              <Divider my={6} borderColor="gray.300" />
+              <Divider my={3} borderColor="gray.300" />
+
+              <Heading as="h3" size="md">
+                Residential Address
+              </Heading>
 
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                 <FormControl isRequired>
@@ -436,28 +456,36 @@ export function Registration() {
                 </FormControl>
               </SimpleGrid>
 
+              <Divider my={3} borderColor="gray.300" />
+
               {/* Mailing Address Section */}
               <Box mt={6}>
                 <VStack align="start" w="100%" mb={4} spacing={2}>
-                  <Heading as="h3" size="md">Mailing Address</Heading>
-                  <Checkbox 
+                  <Heading as="h3" size="md">
+                    Mailing Address
+                  </Heading>
+                  <Checkbox
                     isChecked={sameAsResidential}
                     onChange={handleSameAddress}
                     colorScheme="blue"
                     size="lg"
                   >
-                    <Text fontSize="sm">Check if same as the address above</Text>
+                    <Text fontSize="sm">
+                      Check if same as the address above
+                    </Text>
                   </Checkbox>
                 </VStack>
-
-                <Divider my={6} borderColor="gray.300" />
 
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                   <FormControl isRequired>
                     <FormLabel fontSize="sm">Street Address</FormLabel>
                     <Input
                       name="mailAddress1"
-                      value={sameAsResidential ? formData.address1 : formData.mailAddress1}
+                      value={
+                        sameAsResidential
+                          ? formData.address1
+                          : formData.mailAddress1
+                      }
                       onChange={handleChange}
                       placeholder="Street Address"
                       isDisabled={sameAsResidential}
@@ -465,10 +493,16 @@ export function Registration() {
                   </FormControl>
 
                   <FormControl>
-                    <FormLabel fontSize="sm">Apartment/Suite/Building#</FormLabel>
+                    <FormLabel fontSize="sm">
+                      Apartment/Suite/Building#
+                    </FormLabel>
                     <Input
                       name="mailAddress2"
-                      value={sameAsResidential ? formData.address2 : formData.mailAddress2}
+                      value={
+                        sameAsResidential
+                          ? formData.address2
+                          : formData.mailAddress2
+                      }
                       onChange={handleChange}
                       placeholder="Apartment/Suite/Building#"
                       isDisabled={sameAsResidential}
@@ -479,7 +513,9 @@ export function Registration() {
                     <FormLabel fontSize="sm">City</FormLabel>
                     <Input
                       name="mailCity"
-                      value={sameAsResidential ? formData.city : formData.mailCity}
+                      value={
+                        sameAsResidential ? formData.city : formData.mailCity
+                      }
                       onChange={handleChange}
                       placeholder="City"
                       isDisabled={sameAsResidential}
@@ -490,7 +526,9 @@ export function Registration() {
                     <FormLabel fontSize="sm">State</FormLabel>
                     <Select
                       name="mailState"
-                      value={sameAsResidential ? formData.state : formData.mailState}
+                      value={
+                        sameAsResidential ? formData.state : formData.mailState
+                      }
                       onChange={handleChange}
                       placeholder="Select state"
                       isDisabled={sameAsResidential}
@@ -507,7 +545,11 @@ export function Registration() {
                     <HStack>
                       <Input
                         name="mailZipCode"
-                        value={sameAsResidential ? formData.zipCode : formData.mailZipCode}
+                        value={
+                          sameAsResidential
+                            ? formData.zipCode
+                            : formData.mailZipCode
+                        }
                         onChange={handleChange}
                         placeholder="Zip Code"
                         maxLength={5}
@@ -516,7 +558,11 @@ export function Registration() {
                       <Text>-</Text>
                       <Input
                         name="mailZipExt"
-                        value={sameAsResidential ? formData.zipExt : formData.mailZipExt}
+                        value={
+                          sameAsResidential
+                            ? formData.zipExt
+                            : formData.mailZipExt
+                        }
                         onChange={handleChange}
                         placeholder="Extension"
                         maxLength={4}
@@ -530,7 +576,11 @@ export function Registration() {
                     <FormLabel fontSize="sm">County</FormLabel>
                     <Select
                       name="mailCounty"
-                      value={sameAsResidential ? formData.county : formData.mailCounty}
+                      value={
+                        sameAsResidential
+                          ? formData.county
+                          : formData.mailCounty
+                      }
                       onChange={handleChange}
                       placeholder="Select county"
                       isDisabled={sameAsResidential}
@@ -543,22 +593,21 @@ export function Registration() {
                 </SimpleGrid>
               </Box>
 
-              <Divider my={6} borderColor="gray.300" />
-
+              <Divider my={3} borderColor="gray.300" />
             </VStack>
 
             {/* Right Column - Profile Image */}
-            <VStack 
-              spacing={4} 
+            <VStack
+              spacing={4}
               align="start"
               gridColumn={{ base: "1", md: "3" }}
               w="100%"
             >
-              <Box 
-                boxSize="200px" 
-                borderWidth={2} 
-                borderRadius="lg" 
-                borderStyle="dashed" 
+              <Box
+                boxSize="200px"
+                borderWidth={2}
+                borderRadius="lg"
+                borderStyle="dashed"
                 borderColor="gray.300"
                 position="relative"
                 overflow="hidden"
@@ -600,4 +649,4 @@ export function Registration() {
       </Box>
     </Container>
   );
-} 
+}

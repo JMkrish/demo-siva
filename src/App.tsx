@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [currentView, setCurrentView] = useState('home');
+  const [currentView, setCurrentView] = useState("home");
 
   const handleNavigation = (view: string) => {
     setCurrentView(view);

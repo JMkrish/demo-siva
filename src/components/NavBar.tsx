@@ -21,18 +21,26 @@ interface NavBarProps {
 
 export function NavBar({ onNavigate }: NavBarProps) {
   const navItems = [
-    { label: "Home", href: "#", onClick: () => onNavigate('home') },
-    { label: "Courses", href: "#", onClick: () => onNavigate('courses') },
-    { label: "Certificates", href: "#", onClick: () => onNavigate('certificates') },
-    { label: "HELP", href: "#", onClick: () => onNavigate('help') },
-    { label: "Login", href: "#", onClick: () => onNavigate('login') },
+    { label: "Home", href: "#", onClick: () => onNavigate("home") },
+    { label: "Courses", href: "#", onClick: () => onNavigate("courses") },
+    {
+      label: "Certificates",
+      href: "#",
+      onClick: () => onNavigate("certificates"),
+    },
+    { label: "HELP", href: "#", onClick: () => onNavigate("help") },
+    { label: "Login", href: "#", onClick: () => onNavigate("login") },
   ];
 
   return (
-    <Container maxW="1280px">
+    <Container maxW="6xl">
       <Flex justify="space-between" w="100%" align="center">
         {/* Left side items */}
-        <Link href="/" _hover={{ textDecoration: "none" }} onClick={() => onNavigate('home')}>
+        <Link
+          href="/"
+          _hover={{ textDecoration: "none" }}
+          onClick={() => onNavigate("home")}
+        >
           <Flex align="center">
             <Image src={logo} alt="Harvard Logo" boxSize="65px" />
             <Text color="white" fontSize="xl" fontWeight="semibold">
