@@ -1,12 +1,18 @@
 import {
-  Box,
   Container,
   Flex,
   Text,
   Image,
   Link,
-  HStack,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Show,
+  Hide,
 } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import logo from "../assets/images/harvard-fac.webp";
 
 export function NavBar() {
@@ -29,7 +35,7 @@ export function NavBar() {
 
   return (
     <Container maxW="1280px">
-      <Flex justify="space-between" w="100%">
+      <Flex justify="space-between" w="100%" align="center">
         {/* Left side items */}
         <Link href="/" _hover={{ textDecoration: "none" }}>
           <Flex align="center">
@@ -40,28 +46,55 @@ export function NavBar() {
           </Flex>
         </Link>
 
-        {/* Right side items */}
-        <Flex align="center" gap={6}>
-          {/* <HStack gap={6} align="center"> */}
-          {navItems.map((item, index) => (
-            <Link
-              key={index}
-              href={item.href}
-              onClick={item.onClick}
+        {/* Desktop Navigation */}
+        <Hide below="md">
+          <Flex align="center" gap={6}>
+            {navItems.map((item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                onClick={item.onClick}
+                color="white"
+                fontSize="l"
+                fontWeight="medium"
+                _hover={{
+                  textDecoration: "none",
+                  color: "blue.800",
+                  bg: "white",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </Flex>
+        </Hide>
+
+        {/* Mobile Navigation */}
+        <Show below="md">
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
               color="white"
-              fontSize="l"
-              fontWeight="medium"
-              _hover={{
-                textDecoration: "none",
-                color: "blue.800",
-                bg: "white",
-              }}
-            >
-              {item.label}
-            </Link>
-          ))}
-          {/* </HStack> */}
-        </Flex>
+              _hover={{ bg: "whiteAlpha.200" }}
+              _active={{ bg: "whiteAlpha.300" }}
+            />
+            <MenuList>
+              {navItems.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={item.onClick}
+                  as="a"
+                  href={item.href}
+                >
+                  {item.label}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+        </Show>
       </Flex>
     </Container>
   );
