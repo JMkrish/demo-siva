@@ -30,7 +30,7 @@ function App() {
         <Body currentView={currentView} />
       </GridItem>
 
-      <GridItem area="footer" bg="red" p={4}>
+      <GridItem area="footer" bg="blackAlpha.800" p={4}>
         <Footer />
       </GridItem>
     </Grid>
