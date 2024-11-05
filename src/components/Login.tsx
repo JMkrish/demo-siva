@@ -10,7 +10,8 @@ import {
   Text,
   Link,
   Divider,
-  useToast,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -20,14 +21,15 @@ interface LoginProps {
 }
 
 export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
-  const toast = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoginError("");
     let isValid = true;
 
     if (!email) {
@@ -56,25 +58,11 @@ export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
       );
 
       if (user) {
-        toast({
-          title: "Login Successful",
-          description: `Welcome back, ${user.firstName}!`,
-          status: "success",
-          duration: 3000,
-        });
-
         localStorage.setItem("currentUser", JSON.stringify(user));
-
         onLoginSuccess?.(user);
-
         onNavigate?.("profile");
       } else {
-        toast({
-          title: "Login Failed",
-          description: "Invalid email or password",
-          status: "error",
-          duration: 3000,
-        });
+        setLoginError("Invalid email or password. Please try again.");
       }
     }
   };
@@ -83,7 +71,6 @@ export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
     <Container maxW="6xl" py={8}>
       {/* Title Section */}
       <VStack spacing={4} mb={8}>
-        <Text color="red" fontSize="lg"></Text>
         <Heading as="h3" size="lg" textAlign="center">
           Log in
         </Heading>
@@ -103,14 +90,17 @@ export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
       >
         <form onSubmit={handleSubmit}>
           <VStack spacing={4}>
-            <FormControl isRequired>
+            <FormControl isRequired isInvalid={!!emailError}>
               <FormLabel htmlFor="email">Username</FormLabel>
               <Input
                 id="email"
                 type="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setLoginError("");
+                }}
               />
               {emailError && (
                 <Text color="red.500" fontSize="sm">
@@ -119,14 +109,17 @@ export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
               )}
             </FormControl>
 
-            <FormControl isRequired>
+            <FormControl isRequired isInvalid={!!passwordError}>
               <FormLabel htmlFor="password">Password</FormLabel>
               <Input
                 id="password"
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setLoginError("");
+                }}
               />
               {passwordError && (
                 <Text color="red.500" fontSize="sm">
@@ -152,7 +145,24 @@ export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
               </Text>
             </VStack>
 
-            <Button type="submit" colorScheme="blue" width="100%">
+            {/* Login Error Alert */}
+            {loginError && (
+              <Alert status="error" borderRadius="md">
+                <AlertIcon />
+                {loginError}
+              </Alert>
+            )}
+
+            <Button
+              type="submit"
+              colorScheme="blue"
+              width="100%"
+              isInvalid={!!loginError}
+              _invalid={{
+                borderColor: "red.500",
+                boxShadow: "0 0 0 1px red.500",
+              }}
+            >
               Login
             </Button>
 
