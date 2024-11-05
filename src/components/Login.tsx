@@ -155,13 +155,10 @@ export function Login({ onNavigate, onLoginSuccess }: LoginProps) {
 
             <Button
               type="submit"
-              colorScheme="blue"
+              colorScheme={loginError ? "red" : "blue"}
               width="100%"
-              isInvalid={!!loginError}
-              _invalid={{
-                borderColor: "red.500",
-                boxShadow: "0 0 0 1px red.500",
-              }}
+              borderWidth={loginError ? "2px" : "1px"}
+              borderColor={loginError ? "red.500" : undefined}
             >
               Login
             </Button>
