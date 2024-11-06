@@ -94,59 +94,58 @@ export function Courses() {
 
   return (
     <Box w="100%" overflowX="hidden">
-      <Container maxW="6xl" py={8} px={{ base: 2, md: 4, lg: 8 }}>
-        <VStack spacing={8} align="stretch">
-          {/* Header Section */}
-          <Box>
-            <Heading size="lg" mb={2}>
-              Available Courses
-            </Heading>
-            <Text color="gray.600">
-              Browse and register for our available training courses
-            </Text>
-          </Box>
+      <VStack spacing={4} w="100%" align="stretch">
+        {/* Header Section */}
+        <Box px={4}>
+          <Heading size="lg" mb={2}>
+            Available Courses
+          </Heading>
+          <Text color="gray.600">
+            Browse and register for our available training courses
+          </Text>
+        </Box>
 
-          {/* Search and Filter Section */}
-          <VStack spacing={4} align="stretch">
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
-              <InputGroup>
-                <InputLeftElement>
-                  <SearchIcon color="gray.500" />
-                </InputLeftElement>
-                <Input
-                  placeholder="Search courses..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </InputGroup>
-              <Select
-                placeholder="Filter by Status"
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-              >
-                {statusFilters.map((filter) => (
-                  <option key={filter.value} value={filter.value}>
-                    {filter.label}
-                  </option>
-                ))}
-              </Select>
+        {/* Search and Filter Section */}
+        <Box px={4}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4} w="100%">
+            <InputGroup>
+              <InputLeftElement>
+                <SearchIcon color="gray.500" />
+              </InputLeftElement>
+              <Input
+                placeholder="Search courses..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </InputGroup>
+            <Select
+              placeholder="Filter by Status"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              {statusFilters.map((filter) => (
+                <option key={filter.value} value={filter.value}>
+                  {filter.label}
+                </option>
+              ))}
+            </Select>
+            <Select
+              placeholder="Duration"
+              value={durationFilter}
+              onChange={(e) => setDurationFilter(e.target.value)}
+            >
+              {durationFilters.map((filter) => (
+                <option key={filter.value} value={filter.value}>
+                  {filter.label}
+                </option>
+              ))}
+            </Select>
+          </SimpleGrid>
+        </Box>
 
-              <Select
-                placeholder="Duration"
-                value={durationFilter}
-                onChange={(e) => setDurationFilter(e.target.value)}
-              >
-                {durationFilters.map((filter) => (
-                  <option key={filter.value} value={filter.value}>
-                    {filter.label}
-                  </option>
-                ))}
-              </Select>
-            </SimpleGrid>
-          </VStack>
-
-          {/* Courses Table */}
-          <Box overflowX="auto" mx={-4} px={4}>
+        {/* Courses Table */}
+        <Box overflowX="auto" w="100%">
+          <Box minW="min-content" px={4}>
             <Table
               variant="simple"
               borderWidth={1}
@@ -155,15 +154,28 @@ export function Courses() {
             >
               <Thead bg="gray.50">
                 <Tr>
-                  <Th>ID</Th>
-                  <Th>Course</Th>
-                  <Th display={{ base: "none", md: "table-cell" }}>
+                  <Th whiteSpace="nowrap">ID</Th>
+                  <Th whiteSpace="nowrap">Course</Th>
+                  <Th
+                    display={{ base: "none", md: "table-cell" }}
+                    whiteSpace="nowrap"
+                  >
                     Instructor
                   </Th>
-                  <Th display={{ base: "none", lg: "table-cell" }}>Schedule</Th>
-                  <Th display={{ base: "none", md: "table-cell" }}>Duration</Th>
-                  <Th>Status</Th>
-                  <Th>Action</Th>
+                  <Th
+                    display={{ base: "none", lg: "table-cell" }}
+                    whiteSpace="nowrap"
+                  >
+                    Schedule
+                  </Th>
+                  <Th
+                    display={{ base: "none", md: "table-cell" }}
+                    whiteSpace="nowrap"
+                  >
+                    Duration
+                  </Th>
+                  <Th whiteSpace="nowrap">Status</Th>
+                  <Th whiteSpace="nowrap">Action</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -194,9 +206,7 @@ export function Courses() {
                       </Td>
                       <Td>
                         <Badge
-                          colorScheme={
-                            course.status === "Open" ? "green" : "red"
-                          }
+                          colorScheme={course.status === "Open" ? "green" : "red"}
                           borderRadius="full"
                           px={2}
                         >
@@ -226,9 +236,11 @@ export function Courses() {
               </Tbody>
             </Table>
           </Box>
+        </Box>
 
-          {/* Pagination Controls */}
-          {filteredCourses.length > 0 && (
+        {/* Pagination Controls */}
+        {filteredCourses.length > 0 && (
+          <Box px={4}>
             <VStack spacing={4} align="stretch">
               <Flex
                 direction={{ base: "column", md: "row" }}
@@ -236,13 +248,10 @@ export function Courses() {
                 align={{ base: "center", md: "center" }}
                 gap={4}
               >
-                <Text
-                  color="gray.600"
-                  textAlign={{ base: "center", md: "left" }}
-                >
+                <Text color="gray.600" textAlign={{ base: "center", md: "left" }}>
                   Showing {startIndex + 1} to{" "}
-                  {Math.min(startIndex + rowsPerPage, filteredCourses.length)}{" "}
-                  of {filteredCourses.length} courses
+                  {Math.min(startIndex + rowsPerPage, filteredCourses.length)} of{" "}
+                  {filteredCourses.length} courses
                 </Text>
                 <HStack spacing={2} justify="center">
                   <Button
@@ -267,18 +276,9 @@ export function Courses() {
                 </HStack>
               </Flex>
             </VStack>
-          )}
-
-          {/* Info Section */}
-          <Box bg="blue.50" p={4} borderRadius="md">
-            <Text fontSize="sm" color="blue.800">
-              <strong>Note:</strong> Course registration is subject to
-              availability and eligibility requirements. Please review course
-              details carefully before registering.
-            </Text>
           </Box>
-        </VStack>
-      </Container>
+        )}
+      </VStack>
     </Box>
   );
 }
