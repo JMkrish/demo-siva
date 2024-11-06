@@ -18,8 +18,13 @@ import {
   InputGroup,
   InputLeftElement,
   Flex,
+  SimpleGrid,
 } from "@chakra-ui/react";
-import { SearchIcon, ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import {
+  SearchIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
 import {
   coursesData,
   durationFilters,
@@ -39,14 +44,14 @@ export function Courses() {
   const filteredCourses = useMemo(() => {
     return coursesData.filter((course) => {
       // Search filter
-      const searchMatch = 
+      const searchMatch =
         course.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         course.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
         course.instructor.toLowerCase().includes(searchQuery.toLowerCase());
 
       // Status filter
-      const statusMatch = 
-        statusFilter === "all" || 
+      const statusMatch =
+        statusFilter === "all" ||
         course.status.toLowerCase() === statusFilter.toLowerCase();
 
       // Duration filter
@@ -88,155 +93,192 @@ export function Courses() {
   };
 
   return (
-    <Container maxW="6xl" py={8}>
-      <VStack spacing={8} align="stretch">
-        {/* Header Section */}
-        <Box>
-          <Heading size="lg" mb={2}>
-            Available Courses
-          </Heading>
-          <Text color="gray.600">
-            Browse and register for our available training courses
-          </Text>
-        </Box>
+    <Box w="100%" overflowX="hidden">
+      <Container maxW="6xl" py={8} px={{ base: 2, md: 4, lg: 8 }}>
+        <VStack spacing={8} align="stretch">
+          {/* Header Section */}
+          <Box>
+            <Heading size="lg" mb={2}>
+              Available Courses
+            </Heading>
+            <Text color="gray.600">
+              Browse and register for our available training courses
+            </Text>
+          </Box>
 
-        {/* Search and Filter Section */}
-        <HStack spacing={4} wrap="wrap">
-          <InputGroup maxW="300px">
-            <InputLeftElement>
-              <SearchIcon color="gray.500" />
-            </InputLeftElement>
-            <Input
-              placeholder="Search courses..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </InputGroup>
+          {/* Search and Filter Section */}
+          <VStack spacing={4} align="stretch">
+            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={4}>
+              <InputGroup>
+                <InputLeftElement>
+                  <SearchIcon color="gray.500" />
+                </InputLeftElement>
+                <Input
+                  placeholder="Search courses..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </InputGroup>
+              <Select
+                placeholder="Filter by Status"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                {statusFilters.map((filter) => (
+                  <option key={filter.value} value={filter.value}>
+                    {filter.label}
+                  </option>
+                ))}
+              </Select>
 
-          <Select
-            placeholder="Filter by Status"
-            maxW="200px"
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            {statusFilters.map((filter) => (
-              <option key={filter.value} value={filter.value}>
-                {filter.label}
-              </option>
-            ))}
-          </Select>
+              <Select
+                placeholder="Duration"
+                value={durationFilter}
+                onChange={(e) => setDurationFilter(e.target.value)}
+              >
+                {durationFilters.map((filter) => (
+                  <option key={filter.value} value={filter.value}>
+                    {filter.label}
+                  </option>
+                ))}
+              </Select>
+            </SimpleGrid>
+          </VStack>
 
-          <Select
-            placeholder="Duration"
-            maxW="200px"
-            value={durationFilter}
-            onChange={(e) => setDurationFilter(e.target.value)}
-          >
-            {durationFilters.map((filter) => (
-              <option key={filter.value} value={filter.value}>
-                {filter.label}
-              </option>
-            ))}
-          </Select>
-        </HStack>
-
-        {/* Courses Table */}
-        <Box overflowX="auto">
-          <Table variant="simple" borderWidth={1} borderRadius="lg">
-            <Thead bg="gray.50">
-              <Tr>
-                <Th>Course ID</Th>
-                <Th>Course Name</Th>
-                <Th>Instructor</Th>
-                <Th>Schedule</Th>
-                <Th>Duration</Th>
-                <Th>Status</Th>
-                <Th>Action</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {paginatedCourses.length > 0 ? (
-                paginatedCourses.map((course) => (
-                  <Tr key={course.id}>
-                    <Td fontWeight="medium">{course.id}</Td>
-                    <Td>{course.name}</Td>
-                    <Td>{course.instructor}</Td>
-                    <Td>{course.schedule}</Td>
-                    <Td>{course.duration}</Td>
-                    <Td>
-                      <Badge
-                        colorScheme={course.status === "Open" ? "green" : "red"}
-                        borderRadius="full"
-                        px={2}
-                      >
-                        {course.status}
-                      </Badge>
-                    </Td>
-                    <Td>
-                      <Button
-                        size="sm"
-                        colorScheme="blue"
-                        isDisabled={course.status === "Full"}
-                      >
-                        Register
-                      </Button>
+          {/* Courses Table */}
+          <Box overflowX="auto" mx={-4} px={4}>
+            <Table
+              variant="simple"
+              borderWidth={1}
+              borderRadius="lg"
+              size={{ base: "sm", md: "md" }}
+            >
+              <Thead bg="gray.50">
+                <Tr>
+                  <Th>ID</Th>
+                  <Th>Course</Th>
+                  <Th display={{ base: "none", md: "table-cell" }}>
+                    Instructor
+                  </Th>
+                  <Th display={{ base: "none", lg: "table-cell" }}>Schedule</Th>
+                  <Th display={{ base: "none", md: "table-cell" }}>Duration</Th>
+                  <Th>Status</Th>
+                  <Th>Action</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {paginatedCourses.length > 0 ? (
+                  paginatedCourses.map((course) => (
+                    <Tr key={course.id}>
+                      <Td fontWeight="medium">{course.id}</Td>
+                      <Td>
+                        <VStack align="start" spacing={1}>
+                          <Text>{course.name}</Text>
+                          <Text
+                            display={{ base: "block", md: "none" }}
+                            fontSize="sm"
+                            color="gray.600"
+                          >
+                            {course.instructor}
+                          </Text>
+                        </VStack>
+                      </Td>
+                      <Td display={{ base: "none", md: "table-cell" }}>
+                        {course.instructor}
+                      </Td>
+                      <Td display={{ base: "none", lg: "table-cell" }}>
+                        {course.schedule}
+                      </Td>
+                      <Td display={{ base: "none", md: "table-cell" }}>
+                        {course.duration}
+                      </Td>
+                      <Td>
+                        <Badge
+                          colorScheme={
+                            course.status === "Open" ? "green" : "red"
+                          }
+                          borderRadius="full"
+                          px={2}
+                        >
+                          {course.status}
+                        </Badge>
+                      </Td>
+                      <Td>
+                        <Button
+                          size="sm"
+                          colorScheme="blue"
+                          isDisabled={course.status === "Full"}
+                        >
+                          Register
+                        </Button>
+                      </Td>
+                    </Tr>
+                  ))
+                ) : (
+                  <Tr>
+                    <Td colSpan={7} textAlign="center" py={4}>
+                      <Text color="gray.500">
+                        No courses found matching your criteria
+                      </Text>
                     </Td>
                   </Tr>
-                ))
-              ) : (
-                <Tr>
-                  <Td colSpan={7} textAlign="center" py={4}>
-                    <Text color="gray.500">
-                      No courses found matching your criteria
-                    </Text>
-                  </Td>
-                </Tr>
-              )}
-            </Tbody>
-          </Table>
+                )}
+              </Tbody>
+            </Table>
+          </Box>
 
           {/* Pagination Controls */}
           {filteredCourses.length > 0 && (
-            <Flex justify="space-between" align="center" mt={4} px={2}>
-              <Text color="gray.600">
-                Showing {startIndex + 1} to{" "}
-                {Math.min(startIndex + rowsPerPage, filteredCourses.length)} of{" "}
-                {filteredCourses.length} courses
-              </Text>
-              <HStack spacing={2}>
-                <Button
-                  leftIcon={<ChevronLeftIcon />}
-                  onClick={handlePreviousPage}
-                  isDisabled={currentPage === 1}
-                  size="sm"
+            <VStack spacing={4} align="stretch">
+              <Flex
+                direction={{ base: "column", md: "row" }}
+                justify="space-between"
+                align={{ base: "center", md: "center" }}
+                gap={4}
+              >
+                <Text
+                  color="gray.600"
+                  textAlign={{ base: "center", md: "left" }}
                 >
-                  Previous
-                </Button>
-                <Text color="gray.600">
-                  Page {currentPage} of {totalPages}
+                  Showing {startIndex + 1} to{" "}
+                  {Math.min(startIndex + rowsPerPage, filteredCourses.length)}{" "}
+                  of {filteredCourses.length} courses
                 </Text>
-                <Button
-                  rightIcon={<ChevronRightIcon />}
-                  onClick={handleNextPage}
-                  isDisabled={currentPage === totalPages}
-                  size="sm"
-                >
-                  Next
-                </Button>
-              </HStack>
-            </Flex>
+                <HStack spacing={2} justify="center">
+                  <Button
+                    leftIcon={<ChevronLeftIcon />}
+                    onClick={handlePreviousPage}
+                    isDisabled={currentPage === 1}
+                    size="sm"
+                  >
+                    Previous
+                  </Button>
+                  <Text color="gray.600">
+                    Page {currentPage} of {totalPages}
+                  </Text>
+                  <Button
+                    rightIcon={<ChevronRightIcon />}
+                    onClick={handleNextPage}
+                    isDisabled={currentPage === totalPages}
+                    size="sm"
+                  >
+                    Next
+                  </Button>
+                </HStack>
+              </Flex>
+            </VStack>
           )}
-        </Box>
 
-        {/* Info Section */}
-        <Box bg="blue.50" p={4} borderRadius="md">
-          <Text fontSize="sm" color="blue.800">
-            <strong>Note:</strong> Course registration is subject to availability
-            and eligibility requirements. Please review course details carefully
-            before registering.
-          </Text>
-        </Box>
-      </VStack>
-    </Container>
+          {/* Info Section */}
+          <Box bg="blue.50" p={4} borderRadius="md">
+            <Text fontSize="sm" color="blue.800">
+              <strong>Note:</strong> Course registration is subject to
+              availability and eligibility requirements. Please review course
+              details carefully before registering.
+            </Text>
+          </Box>
+        </VStack>
+      </Container>
+    </Box>
   );
 }
