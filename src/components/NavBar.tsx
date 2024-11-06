@@ -58,9 +58,9 @@ export function NavBar({ onNavigate, isLoggedIn, onLogout }: NavBarProps) {
           onClick={() => onNavigate("home")}
         >
           <Flex align="center">
-            <Image src={logo} alt="Harvard Logo" boxSize="65px" />
+            <Image src={logo} alt="Serigor Logo" boxSize="65px" />
             <Text color="white" fontSize="xl" fontWeight="semibold">
-              Harvard University
+              Serigor University
             </Text>
           </Flex>
         </Link>

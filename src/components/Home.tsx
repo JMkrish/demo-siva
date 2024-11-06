@@ -13,7 +13,7 @@ import MAIN_IMG_5 from "../assets/images/main1.png";
 const images = [
   {
     src: MAIN_IMG_1,
-    title: "Welcome to Harvard University",
+    title: "Welcome to Serigor University",
     description: "Leading the way in global education and research",
   },
   {

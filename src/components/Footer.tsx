@@ -22,7 +22,7 @@ export function Footer() {
               Get In Touch
             </Heading>
             <Text color="white">
-              Harvard University Massachusetts Hall Cambridge, MA 02138
+              Serigor University 400 East Pratt Street, Baltimore MD 21202
             </Text>
             <Text color="white" display="flex" alignItems="center">
               <PhoneIcon mr={2} /> (617) 495-1000
@@ -37,7 +37,7 @@ export function Footer() {
               Our Commitment
             </Heading>
             <Text color="white">
-              Harvard University is committed to providing excellence in
+              Serigor University is committed to providing excellence in
               education through:
             </Text>
             <List spacing={2}>
@@ -74,7 +74,7 @@ export function Footer() {
               Our Community
             </Heading>
             <Text color="white">
-              Harvard's community includes students, faculty, researchers,
+              Serigor's community includes students, faculty, researchers,
               staff, alumni, and partners from around the globe. We serve a
               diverse population of learners, from undergraduate and graduate
               students to professionals seeking continuing education and
