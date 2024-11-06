@@ -231,400 +231,257 @@ export function Registration() {
 
   return (
     <Container maxW="6xl" py={8}>
+      {/* Header Section */}
       <VStack spacing={4} mb={8}>
-        <Heading as="h2" size="lg" textAlign="center">
-          Personal Profile
+        <Heading as="h2" size="lg">
+          Create Your Serigor Account
         </Heading>
+        <Text color="gray.600" textAlign="center" maxW="2xl">
+          Join our community of learners and professionals. Fill out the form below to get started.
+        </Text>
       </VStack>
 
-      <Box maxW="6xl" mx="auto" borderWidth={1} borderRadius="lg" p={8}>
-        <Text color="red.500" fontWeight="bold">
-          Name, DOB, Gender and email address cannot be changed after creating
-          the profile except by Admin.
-        </Text>
+      <Box maxW="6xl" mx="auto" borderWidth={1} borderRadius="lg" p={8} bg="white" shadow="md">
         <form onSubmit={handleSubmit}>
-          <SimpleGrid columns={{ base: 1, md: 3 }} spacing={8}>
-            {/* Left Column - Form Fields */}
-            <VStack
-              spacing={6}
-              align="stretch"
-              gridColumn={{ base: "1", md: "span 2" }}
-            >
-              <Divider my={3} borderColor="gray.300" />
-
-              <Heading as="h3" size="md">
-                Personal Information
-              </Heading>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl isRequired isInvalid={!!errors.firstName}>
-                  <FormLabel fontSize="sm">First Name</FormLabel>
-                  <Input
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    placeholder="Enter first name"
-                  />
-                  {errors.firstName && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.firstName}
-                    </Text>
-                  )}
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel fontSize="sm">Middle Name</FormLabel>
-                  <Input
-                    name="middleName"
-                    value={formData.middleName}
-                    onChange={handleChange}
-                    placeholder="Enter middle name"
-                  />
-                </FormControl>
-              </SimpleGrid>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl isRequired isInvalid={!!errors.lastName}>
-                  <FormLabel fontSize="sm">Last Name</FormLabel>
-                  <Input
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    placeholder="Enter last name"
-                  />
-                  {errors.lastName && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.lastName}
-                    </Text>
-                  )}
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel fontSize="sm">Suffix</FormLabel>
-                  <Input
-                    name="suffix"
-                    value={formData.suffix}
-                    onChange={handleChange}
-                    placeholder="Enter suffix"
-                  />
-                </FormControl>
-              </SimpleGrid>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl isRequired isInvalid={!!errors.dob}>
-                  <FormLabel fontSize="sm">
-                    Date of Birth (MM/DD/YYYY)
-                  </FormLabel>
-                  <Input
-                    name="dob"
-                    type="date"
-                    value={formData.dob}
-                    onChange={handleChange}
-                  />
-                  {errors.dob && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.dob}
-                    </Text>
-                  )}
-                </FormControl>
-
-                <FormControl isRequired isInvalid={!!errors.gender}>
-                  <FormLabel fontSize="sm">Gender</FormLabel>
-                  <Select
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                    placeholder="Select gender"
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other/Prefer Not to Answer</option>
-                  </Select>
-                  {errors.gender && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.gender}
-                    </Text>
-                  )}
-                </FormControl>
-              </SimpleGrid>
-
-              {/* Contact Information Section */}
-              <Divider my={3} borderColor="gray.300" />
-
-              <Heading as="h3" size="md">
-                Contact Information
-              </Heading>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl>
-                  <FormLabel fontSize="sm">Primary Phone Number</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement children={<PhoneIcon />} />
-                    <Input
-                      name="primaryPhone"
-                      type="tel"
-                      value={formData.primaryPhone}
-                      onChange={handleChange}
-                      placeholder="Enter primary phone number"
-                    />
-                  </InputGroup>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel fontSize="sm">Cell Phone</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement children={<PhoneIcon />} />
-                    <Input
-                      name="cellPhone"
-                      type="tel"
-                      value={formData.cellPhone}
-                      onChange={handleChange}
-                      placeholder="Enter cell phone number"
-                    />
-                  </InputGroup>
-                </FormControl>
-              </SimpleGrid>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl isRequired isInvalid={!!errors.email}>
-                  <FormLabel fontSize="sm">Email</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement children={<EmailIcon />} />
-                    <Input
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Enter email"
-                    />
-                  </InputGroup>
-                  {errors.email && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.email}
-                    </Text>
-                  )}
-                </FormControl>
-
-                <FormControl isRequired isInvalid={!!errors.confirmEmail}>
-                  <FormLabel fontSize="sm">Confirm Email</FormLabel>
-                  <InputGroup>
-                    <InputLeftElement children={<EmailIcon />} />
-                    <Input
-                      name="confirmEmail"
-                      type="email"
-                      value={formData.confirmEmail}
-                      onChange={handleChange}
-                      placeholder="Confirm your email"
-                    />
-                  </InputGroup>
-                  {errors.confirmEmail && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.confirmEmail}
-                    </Text>
-                  )}
-                </FormControl>
-              </SimpleGrid>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl isRequired isInvalid={!!errors.password}>
-                  <FormLabel fontSize="sm">Password</FormLabel>
-                  <Input
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Enter password"
-                  />
-                  {errors.password && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.password}
-                    </Text>
-                  )}
-                </FormControl>
-
-                <FormControl isRequired isInvalid={!!errors.confirmPassword}>
-                  <FormLabel fontSize="sm">Confirm Password</FormLabel>
-                  <Input
-                    name="confirmPassword"
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="Confirm your password"
-                  />
-                  {errors.confirmPassword && (
-                    <Text color="red.500" fontSize="sm">
-                      {errors.confirmPassword}
-                    </Text>
-                  )}
-                </FormControl>
-              </SimpleGrid>
-
-              {/* Residential Address Section */}
-              <Divider my={3} borderColor="gray.300" />
-
-              <Heading as="h3" size="md">
-                Residential Address
-              </Heading>
-
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm">Street Address</FormLabel>
-                  <Input
-                    name="address1"
-                    value={formData.address1}
-                    onChange={handleChange}
-                    placeholder="Street Address"
-                  />
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel fontSize="sm">Apartment/Suite/Building#</FormLabel>
-                  <Input
-                    name="address2"
-                    value={formData.address2}
-                    onChange={handleChange}
-                    placeholder="Apartment/Suite/Building#"
-                  />
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm">City</FormLabel>
-                  <Input
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    placeholder="City"
-                  />
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm">State</FormLabel>
-                  <Select
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    placeholder="Select state"
-                  >
-                    <option value="MA">Massachusetts</option>
-                    <option value="NY">New York</option>
-                    <option value="CA">California</option>
-                    {/* Add more states as needed */}
-                  </Select>
-                </FormControl>
-
-                <FormControl isRequired>
-                  <FormLabel fontSize="sm">Zip Code</FormLabel>
-                  <HStack>
-                    <Input
-                      name="zipCode"
-                      value={formData.zipCode}
-                      onChange={handleChange}
-                      placeholder="Zip Code"
-                      maxLength={5}
-                    />
-                    <Text>-</Text>
-                    <Input
-                      name="zipExt"
-                      value={formData.zipExt}
-                      onChange={handleChange}
-                      placeholder="Extension"
-                      maxLength={4}
-                      w="100px"
-                    />
-                  </HStack>
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel fontSize="sm">County</FormLabel>
-                  <Select
-                    name="county"
-                    value={formData.county}
-                    onChange={handleChange}
-                    placeholder="Select county"
-                  >
-                    <option value="middlesex">Middlesex</option>
-                    <option value="suffolk">Suffolk</option>
-                    {/* Add more counties as needed */}
-                  </Select>
-                </FormControl>
-              </SimpleGrid>
-
-              <Divider my={3} borderColor="gray.300" />
-
-              {/* Mailing Address Section */}
-              <Box mt={6}>
-                <VStack align="start" w="100%" mb={4} spacing={2}>
-                  <Heading as="h3" size="md">
-                    Mailing Address
-                  </Heading>
-                  <Checkbox
-                    isChecked={sameAsResidential}
-                    onChange={handleSameAddress}
-                    colorScheme="blue"
-                    size="lg"
-                  >
-                    <Text fontSize="sm">
-                      Check if same as the address above
-                    </Text>
-                  </Checkbox>
-                </VStack>
-
+          <SimpleGrid columns={{ base: 1, lg: 3 }} spacing={8}>
+            {/* Main Form Content - Left Side */}
+            <VStack spacing={6} align="stretch" gridColumn={{ base: "1", lg: "span 2" }}>
+              {/* Account Credentials Section */}
+              <Box bg="gray.50" p={6} borderRadius="md">
+                <Heading as="h3" size="md" mb={4} color="blue.700">
+                  Account Credentials
+                </Heading>
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                  <FormControl isRequired>
-                    <FormLabel fontSize="sm">Street Address</FormLabel>
+                  <FormControl isRequired isInvalid={!!errors.email}>
+                    <FormLabel fontSize="sm">Email</FormLabel>
+                    <InputGroup>
+                      <InputLeftElement children={<EmailIcon />} />
+                      <Input
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        bg="white"
+                      />
+                    </InputGroup>
+                    {errors.email && (
+                      <Text color="red.500" fontSize="sm">{errors.email}</Text>
+                    )}
+                  </FormControl>
+
+                  <FormControl isRequired isInvalid={!!errors.confirmEmail}>
+                    <FormLabel fontSize="sm">Confirm Email</FormLabel>
+                    <InputGroup>
+                      <InputLeftElement children={<EmailIcon />} />
+                      <Input
+                        name="confirmEmail"
+                        type="email"
+                        value={formData.confirmEmail}
+                        onChange={handleChange}
+                        bg="white"
+                      />
+                    </InputGroup>
+                    {errors.confirmEmail && (
+                      <Text color="red.500" fontSize="sm">{errors.confirmEmail}</Text>
+                    )}
+                  </FormControl>
+
+                  <FormControl isRequired isInvalid={!!errors.password}>
+                    <FormLabel fontSize="sm">Password</FormLabel>
                     <Input
-                      name="mailAddress1"
-                      value={
-                        sameAsResidential
-                          ? formData.address1
-                          : formData.mailAddress1
-                      }
+                      name="password"
+                      type="password"
+                      value={formData.password}
                       onChange={handleChange}
-                      placeholder="Street Address"
-                      isDisabled={sameAsResidential}
+                      bg="white"
                     />
+                    {errors.password && (
+                      <Text color="red.500" fontSize="sm">{errors.password}</Text>
+                    )}
+                  </FormControl>
+
+                  <FormControl isRequired isInvalid={!!errors.confirmPassword}>
+                    <FormLabel fontSize="sm">Confirm Password</FormLabel>
+                    <Input
+                      name="confirmPassword"
+                      type="password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      bg="white"
+                    />
+                    {errors.confirmPassword && (
+                      <Text color="red.500" fontSize="sm">{errors.confirmPassword}</Text>
+                    )}
+                  </FormControl>
+                </SimpleGrid>
+              </Box>
+
+              {/* Personal Information Section */}
+              <Box bg="gray.50" p={6} borderRadius="md">
+                <Heading as="h3" size="md" mb={4} color="blue.700">
+                  Personal Information
+                </Heading>
+                <Text color="red.500" fontSize="sm" mb={4}>
+                  * These details cannot be changed after registration without admin approval
+                </Text>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                  <FormControl isRequired isInvalid={!!errors.firstName}>
+                    <FormLabel fontSize="sm">First Name</FormLabel>
+                    <Input
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      bg="white"
+                    />
+                    {errors.firstName && (
+                      <Text color="red.500" fontSize="sm">{errors.firstName}</Text>
+                    )}
                   </FormControl>
 
                   <FormControl>
-                    <FormLabel fontSize="sm">
-                      Apartment/Suite/Building#
-                    </FormLabel>
+                    <FormLabel fontSize="sm">Middle Name</FormLabel>
                     <Input
-                      name="mailAddress2"
-                      value={
-                        sameAsResidential
-                          ? formData.address2
-                          : formData.mailAddress2
-                      }
+                      name="middleName"
+                      value={formData.middleName}
+                      onChange={handleChange}
+                      bg="white"
+                    />
+                  </FormControl>
+
+                  <FormControl isRequired isInvalid={!!errors.lastName}>
+                    <FormLabel fontSize="sm">Last Name</FormLabel>
+                    <Input
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      bg="white"
+                    />
+                    {errors.lastName && (
+                      <Text color="red.500" fontSize="sm">{errors.lastName}</Text>
+                    )}
+                  </FormControl>
+
+                  <FormControl>
+                    <FormLabel fontSize="sm">Suffix</FormLabel>
+                    <Input
+                      name="suffix"
+                      value={formData.suffix}
+                      onChange={handleChange}
+                      bg="white"
+                    />
+                  </FormControl>
+
+                  <FormControl isRequired isInvalid={!!errors.dob}>
+                    <FormLabel fontSize="sm">Date of Birth</FormLabel>
+                    <Input
+                      name="dob"
+                      type="date"
+                      value={formData.dob}
+                      onChange={handleChange}
+                      bg="white"
+                    />
+                    {errors.dob && (
+                      <Text color="red.500" fontSize="sm">{errors.dob}</Text>
+                    )}
+                  </FormControl>
+
+                  <FormControl isRequired isInvalid={!!errors.gender}>
+                    <FormLabel fontSize="sm">Gender</FormLabel>
+                    <Select
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleChange}
+                      bg="white"
+                    >
+                      <option value="">Select gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other/Prefer Not to Answer</option>
+                    </Select>
+                    {errors.gender && (
+                      <Text color="red.500" fontSize="sm">{errors.gender}</Text>
+                    )}
+                  </FormControl>
+                </SimpleGrid>
+              </Box>
+
+              {/* Contact Details Section */}
+              <Box bg="gray.50" p={6} borderRadius="md">
+                <Heading as="h3" size="md" mb={4} color="blue.700">
+                  Contact Details
+                </Heading>
+                <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                  {/* Phone Numbers */}
+                  <FormControl>
+                    <FormLabel fontSize="sm">Primary Phone</FormLabel>
+                    <InputGroup>
+                      <InputLeftElement children={<PhoneIcon />} />
+                      <Input
+                        name="primaryPhone"
+                        type="tel"
+                        value={formData.primaryPhone}
+                        onChange={handleChange}
+                        bg="white"
+                      />
+                    </InputGroup>
+                  </FormControl>
+
+                  <FormControl>
+                    <FormLabel fontSize="sm">Cell Phone</FormLabel>
+                    <InputGroup>
+                      <InputLeftElement children={<PhoneIcon />} />
+                      <Input
+                        name="cellPhone"
+                        type="tel"
+                        value={formData.cellPhone}
+                        onChange={handleChange}
+                        bg="white"
+                      />
+                    </InputGroup>
+                  </FormControl>
+
+                  {/* Address Fields */}
+                  <FormControl isRequired gridColumn={{ base: "auto", md: "span 2" }}>
+                    <FormLabel fontSize="sm">Street Address</FormLabel>
+                    <Input
+                      name="address1"
+                      value={formData.address1}
+                      onChange={handleChange}
+                      placeholder="Street Address"
+                      bg="white"
+                    />
+                  </FormControl>
+
+                  <FormControl gridColumn={{ base: "auto", md: "span 2" }}>
+                    <FormLabel fontSize="sm">Apartment/Suite/Building#</FormLabel>
+                    <Input
+                      name="address2"
+                      value={formData.address2}
                       onChange={handleChange}
                       placeholder="Apartment/Suite/Building#"
-                      isDisabled={sameAsResidential}
+                      bg="white"
                     />
                   </FormControl>
 
                   <FormControl isRequired>
                     <FormLabel fontSize="sm">City</FormLabel>
                     <Input
-                      name="mailCity"
-                      value={
-                        sameAsResidential ? formData.city : formData.mailCity
-                      }
+                      name="city"
+                      value={formData.city}
                       onChange={handleChange}
                       placeholder="City"
-                      isDisabled={sameAsResidential}
+                      bg="white"
                     />
                   </FormControl>
 
                   <FormControl isRequired>
                     <FormLabel fontSize="sm">State</FormLabel>
                     <Select
-                      name="mailState"
-                      value={
-                        sameAsResidential ? formData.state : formData.mailState
-                      }
+                      name="state"
+                      value={formData.state}
                       onChange={handleChange}
                       placeholder="Select state"
-                      isDisabled={sameAsResidential}
+                      bg="white"
                     >
                       <option value="MA">Massachusetts</option>
                       <option value="NY">New York</option>
@@ -637,30 +494,22 @@ export function Registration() {
                     <FormLabel fontSize="sm">Zip Code</FormLabel>
                     <HStack>
                       <Input
-                        name="mailZipCode"
-                        value={
-                          sameAsResidential
-                            ? formData.zipCode
-                            : formData.mailZipCode
-                        }
+                        name="zipCode"
+                        value={formData.zipCode}
                         onChange={handleChange}
                         placeholder="Zip Code"
                         maxLength={5}
-                        isDisabled={sameAsResidential}
+                        bg="white"
                       />
                       <Text>-</Text>
                       <Input
-                        name="mailZipExt"
-                        value={
-                          sameAsResidential
-                            ? formData.zipExt
-                            : formData.mailZipExt
-                        }
+                        name="zipExt"
+                        value={formData.zipExt}
                         onChange={handleChange}
                         placeholder="Extension"
                         maxLength={4}
                         w="100px"
-                        isDisabled={sameAsResidential}
+                        bg="white"
                       />
                     </HStack>
                   </FormControl>
@@ -668,15 +517,11 @@ export function Registration() {
                   <FormControl>
                     <FormLabel fontSize="sm">County</FormLabel>
                     <Select
-                      name="mailCounty"
-                      value={
-                        sameAsResidential
-                          ? formData.county
-                          : formData.mailCounty
-                      }
+                      name="county"
+                      value={formData.county}
                       onChange={handleChange}
                       placeholder="Select county"
-                      isDisabled={sameAsResidential}
+                      bg="white"
                     >
                       <option value="middlesex">Middlesex</option>
                       <option value="suffolk">Suffolk</option>
@@ -686,58 +531,88 @@ export function Registration() {
                 </SimpleGrid>
               </Box>
 
-              <Divider my={3} borderColor="gray.300" />
             </VStack>
 
-            {/* Right Column - Profile Image */}
-            <VStack
-              spacing={4}
-              align="start"
-              gridColumn={{ base: "1", md: "3" }}
-              w="100%"
-            >
-              <Box
-                boxSize="200px"
-                borderWidth={2}
-                borderRadius="lg"
-                borderStyle="dashed"
-                borderColor="gray.300"
-                position="relative"
-                overflow="hidden"
-                alignSelf="start"
+            {/* Profile Image Section - Right Side */}
+            <VStack spacing={4} align="stretch">
+              <Box 
+                bg="gray.50" 
+                p={6} 
+                borderRadius="md" 
+                w="100%"
               >
-                <Image
-                  src={imagePreview}
-                  alt="Profile Preview"
-                  objectFit="cover"
+                <Heading as="h3" size="md" mb={6} color="blue.700">
+                  Profile Picture
+                </Heading>
+                <VStack 
+                  spacing={6} 
+                  align="center" 
                   w="100%"
-                  h="100%"
-                />
+                >
+                  <Box
+                    w="240px"  // Fixed width
+                    h="240px"  // Fixed height
+                    position="relative"
+                    borderWidth={2}
+                    borderRadius="lg"
+                    borderStyle="dashed"
+                    borderColor="gray.300"
+                    overflow="hidden"
+                    bg="white"
+                  >
+                    <Image
+                      src={imagePreview}
+                      alt="Profile Preview"
+                      objectFit="cover"
+                      w="100%"
+                      h="100%"
+                    />
+                  </Box>
+                  <VStack spacing={2} w="100%">
+                    <FormControl>
+                      <Button
+                        as="label"
+                        htmlFor="profile-image"
+                        cursor="pointer"
+                        colorScheme="blue"
+                        width="100%"
+                        size="md"
+                        _hover={{ bg: "blue.600" }}
+                      >
+                        Choose Photo
+                        <Input
+                          id="profile-image"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          display="none"
+                        />
+                      </Button>
+                    </FormControl>
+                    <Text fontSize="xs" color="gray.500" textAlign="center">
+                      Supported formats: JPG/JPEG/PNG/GIF
+                    </Text>
+                  </VStack>
+                </VStack>
               </Box>
-              <FormControl>
-                <FormLabel fontSize="sm">Profile Image</FormLabel>
-                <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  variant="unstyled"
-                  p={2}
-                />
-                <Text fontSize="xs" color="gray.500" mt={2}>
-                  (Only JPG/PNG/JPEG/GIF files are allowed)
-                </Text>
-              </FormControl>
             </VStack>
           </SimpleGrid>
 
-          <HStack justify="center" mt={8} spacing={4}>
-            <Button type="submit" colorScheme="blue" size="lg">
-              Save Profile
+          {/* Submit Button Section */}
+          <VStack mt={8} spacing={4}>
+            <Button
+              type="submit"
+              colorScheme="blue"
+              size="lg"
+              px={12}
+              loadingText="Creating Account..."
+            >
+              Create Account
             </Button>
-            <Button colorScheme="gray" size="lg">
-              Cancel
-            </Button>
-          </HStack>
+            <Text color="gray.600" fontSize="sm">
+              By creating an account, you agree to our Terms of Service and Privacy Policy
+            </Text>
+          </VStack>
         </form>
       </Box>
     </Container>
