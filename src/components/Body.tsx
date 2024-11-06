@@ -1,8 +1,7 @@
-import { Container } from "@chakra-ui/react";
+import { Container, Flex, Text } from "@chakra-ui/react";
 import { Login } from "./Login";
 import { Registration } from "./Registration";
 import { UserProfile } from "./UserProfile";
-import { Courses } from "./Courses";
 import Home from "./Home";
 
 interface BodyProps {
@@ -22,8 +21,6 @@ export function Body({ currentView, onNavigate, onLoginSuccess }: BodyProps) {
         return <Registration />;
       case "profile":
         return <UserProfile onNavigate={onNavigate} />;
-      case "courses":
-        return <Courses />;
       default:
         return <Home />;
     }
