@@ -4,7 +4,9 @@ import { Registration } from "./Registration";
 import { UserProfile } from "./UserProfile";
 import { Courses } from "./Courses";
 import { TrainingCoursesHelp } from "./TrainingCoursesHelp";
+import { ExamsHelp } from "./ExamsHelp";
 import Home from "./Home";
+import { Exams } from "./Exams";
 
 interface BodyProps {
   currentView: string;
@@ -27,6 +29,10 @@ export function Body({ currentView, onNavigate, onLoginSuccess }: BodyProps) {
         return <Courses />;
       case "courses-help":
         return <TrainingCoursesHelp />;
+      case "exams-help":
+        return <ExamsHelp />;
+      case "exams":
+        return <Exams />;
       default:
         return <Home />;
     }

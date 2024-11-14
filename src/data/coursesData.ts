@@ -6,6 +6,12 @@ export interface Course {
   duration: string;
   status: "Open" | "Full";
   seats: number;
+  location?: string;
+  phone?: string;
+  email?: string;
+  price?: string;
+  startDate: string;
+  endDate: string;
 }
 
 export const coursesData: Course[] = [
@@ -17,6 +23,12 @@ export const coursesData: Course[] = [
     duration: "12 weeks",
     status: "Open",
     seats: 15,
+    location: "11 Lead St, Silver spring, Maryland - 2",
+    phone: "() -1234",
+    email: "npatha@serigor.com",
+    price: "$299",
+    startDate: "2024/11/08",
+    endDate: "2024/11/09"
   },
   {
     id: "MATH201",
@@ -26,6 +38,12 @@ export const coursesData: Course[] = [
     duration: "16 weeks",
     status: "Open",
     seats: 8,
+    location: "15 Math Ave, Silver spring, Maryland - 2",
+    phone: "() -5678",
+    email: "math@serigor.com",
+    price: "$399",
+    startDate: "2024/11/14",
+    endDate: "2024/11/14"
   },
   {
     id: "BIO301",
@@ -35,6 +53,12 @@ export const coursesData: Course[] = [
     duration: "14 weeks",
     status: "Full",
     seats: 0,
+    location: "17 Bio St, Silver spring, Maryland - 2",
+    phone: "() -9012",
+    email: "bio@serigor.com",
+    price: "$499",
+    startDate: "2024/11/16",
+    endDate: "2024/11/16"
   },
   {
     id: "ENG102",
@@ -44,6 +68,12 @@ export const coursesData: Course[] = [
     duration: "10 weeks",
     status: "Open",
     seats: 12,
+    location: "19 Eng St, Silver spring, Maryland - 2",
+    phone: "() -3456",
+    email: "eng@serigor.com",
+    price: "$199",
+    startDate: "2024/11/20",
+    endDate: "2024/11/20"
   },
   {
     id: "PHY201",
@@ -53,6 +83,12 @@ export const coursesData: Course[] = [
     duration: "15 weeks",
     status: "Full",
     seats: 0,
+    location: "21 Phy St, Silver spring, Maryland - 2",
+    phone: "() -7890",
+    email: "phy@serigor.com",
+    price: "$599",
+    startDate: "2024/11/22",
+    endDate: "2024/11/22"
   },
   {
     id: "CHEM101",
@@ -62,6 +98,12 @@ export const coursesData: Course[] = [
     duration: "13 weeks",
     status: "Open",
     seats: 20,
+    location: "23 Chem St, Silver spring, Maryland - 2",
+    phone: "() -2345",
+    email: "chem@serigor.com",
+    price: "$399",
+    startDate: "2024/11/24",
+    endDate: "2024/11/24"
   },
   {
     id: "PSY202",
@@ -71,6 +113,12 @@ export const coursesData: Course[] = [
     duration: "12 weeks",
     status: "Open",
     seats: 15,
+    location: "25 Psy St, Silver spring, Maryland - 2",
+    phone: "() -6789",
+    email: "psy@serigor.com",
+    price: "$299",
+    startDate: "2024/11/26",
+    endDate: "2024/11/26"
   },
   {
     id: "ART301",
@@ -80,6 +128,12 @@ export const coursesData: Course[] = [
     duration: "10 weeks",
     status: "Full",
     seats: 0,
+    location: "27 Art St, Silver spring, Maryland - 2",
+    phone: "() -4567",
+    email: "art@serigor.com",
+    price: "$199",
+    startDate: "2024/11/28",
+    endDate: "2024/11/28"
   },
   {
     id: "HIS101",
@@ -89,6 +143,12 @@ export const coursesData: Course[] = [
     duration: "15 weeks",
     status: "Open",
     seats: 25,
+    location: "29 His St, Silver spring, Maryland - 2",
+    phone: "() -8901",
+    email: "his@serigor.com",
+    price: "$599",
+    startDate: "2024/11/30",
+    endDate: "2024/11/30"
   },
   {
     id: "CS202",
@@ -98,6 +158,12 @@ export const coursesData: Course[] = [
     duration: "14 weeks",
     status: "Full",
     seats: 0,
+    location: "31 CS St, Silver spring, Maryland - 2",
+    phone: "() -0123",
+    email: "cs@serigor.com",
+    price: "$399",
+    startDate: "2024/12/02",
+    endDate: "2024/12/02"
   },
   {
     id: "MUS101",
@@ -107,6 +173,12 @@ export const coursesData: Course[] = [
     duration: "12 weeks",
     status: "Open",
     seats: 18,
+    location: "33 MUS St, Silver spring, Maryland - 2",
+    phone: "() -4567",
+    email: "mus@serigor.com",
+    price: "$299",
+    startDate: "2024/12/04",
+    endDate: "2024/12/04"
   },
   {
     id: "BUS301",
@@ -116,6 +188,12 @@ export const coursesData: Course[] = [
     duration: "16 weeks",
     status: "Open",
     seats: 30,
+    location: "35 BUS St, Silver spring, Maryland - 2",
+    phone: "() -6789",
+    email: "bus@serigor.com",
+    price: "$599",
+    startDate: "2024/12/06",
+    endDate: "2024/12/06"
   },
   {
     id: "SOC201",
@@ -125,6 +203,12 @@ export const coursesData: Course[] = [
     duration: "13 weeks",
     status: "Full",
     seats: 0,
+    location: "37 SOC St, Silver spring, Maryland - 2",
+    phone: "() -2345",
+    email: "soc@serigor.com",
+    price: "$299",
+    startDate: "2024/12/08",
+    endDate: "2024/12/08"
   },
   {
     id: "PHIL101",
@@ -134,6 +218,12 @@ export const coursesData: Course[] = [
     duration: "11 weeks",
     status: "Open",
     seats: 22,
+    location: "39 PHIL St, Silver spring, Maryland - 2",
+    phone: "() -7890",
+    email: "phil@serigor.com",
+    price: "$499",
+    startDate: "2024/12/10",
+    endDate: "2024/12/10"
   },
   {
     id: "ECO202",
@@ -143,6 +233,12 @@ export const coursesData: Course[] = [
     duration: "15 weeks",
     status: "Open",
     seats: 35,
+    location: "41 ECO St, Silver spring, Maryland - 2",
+    phone: "() -1234",
+    email: "eco@serigor.com",
+    price: "$599",
+    startDate: "2024/12/12",
+    endDate: "2024/12/12"
   },
   {
     id: "CS303",
@@ -152,6 +248,12 @@ export const coursesData: Course[] = [
     duration: "12 weeks",
     status: "Full",
     seats: 0,
+    location: "43 CS St, Silver spring, Maryland - 2",
+    phone: "() -5678",
+    email: "web@serigor.com",
+    price: "$399",
+    startDate: "2024/12/14",
+    endDate: "2024/12/14"
   },
   {
     id: "LANG101",
@@ -161,6 +263,12 @@ export const coursesData: Course[] = [
     duration: "10 weeks",
     status: "Open",
     seats: 20,
+    location: "45 LANG St, Silver spring, Maryland - 2",
+    phone: "() -9012",
+    email: "spanish@serigor.com",
+    price: "$199",
+    startDate: "2024/12/16",
+    endDate: "2024/12/16"
   },
   {
     id: "ENV201",
@@ -170,6 +278,12 @@ export const coursesData: Course[] = [
     duration: "14 weeks",
     status: "Open",
     seats: 25,
+    location: "47 ENV St, Silver spring, Maryland - 2",
+    phone: "() -3456",
+    email: "env@serigor.com",
+    price: "$499",
+    startDate: "2024/12/18",
+    endDate: "2024/12/18"
   },
   {
     id: "MATH102",
@@ -179,6 +293,12 @@ export const coursesData: Course[] = [
     duration: "16 weeks",
     status: "Full",
     seats: 0,
+    location: "49 MATH St, Silver spring, Maryland - 2",
+    phone: "() -7890",
+    email: "calculus@serigor.com",
+    price: "$599",
+    startDate: "2024/12/20",
+    endDate: "2024/12/20"
   },
   {
     id: "MKT301",
@@ -188,6 +308,12 @@ export const coursesData: Course[] = [
     duration: "11 weeks",
     status: "Open",
     seats: 28,
+    location: "51 MKT St, Silver spring, Maryland - 2",
+    phone: "() -2345",
+    email: "marketing@serigor.com",
+    price: "$399",
+    startDate: "2024/12/22",
+    endDate: "2024/12/22"
   },
   {
     id: "PHY101",
@@ -197,6 +323,12 @@ export const coursesData: Course[] = [
     duration: "15 weeks",
     status: "Open",
     seats: 15,
+    location: "53 PHY St, Silver spring, Maryland - 2",
+    phone: "() -6789",
+    email: "physics@serigor.com",
+    price: "$499",
+    startDate: "2024/12/24",
+    endDate: "2024/12/24"
   },
   {
     id: "ENG201",
@@ -206,6 +338,12 @@ export const coursesData: Course[] = [
     duration: "9 weeks",
     status: "Full",
     seats: 0,
+    location: "55 ENG St, Silver spring, Maryland - 2",
+    phone: "() -1234",
+    email: "business@serigor.com",
+    price: "$299",
+    startDate: "2024/12/26",
+    endDate: "2024/12/26"
   },
   {
     id: "CS401",
@@ -215,6 +353,12 @@ export const coursesData: Course[] = [
     duration: "16 weeks",
     status: "Open",
     seats: 20,
+    location: "57 CS St, Silver spring, Maryland - 2",
+    phone: "() -5678",
+    email: "ai@serigor.com",
+    price: "$599",
+    startDate: "2024/12/28",
+    endDate: "2024/12/28"
   },
   {
     id: "BIO201",
@@ -224,6 +368,12 @@ export const coursesData: Course[] = [
     duration: "14 weeks",
     status: "Open",
     seats: 24,
+    location: "59 BIO St, Silver spring, Maryland - 2",
+    phone: "() -9012",
+    email: "anatomy@serigor.com",
+    price: "$499",
+    startDate: "2024/12/30",
+    endDate: "2024/12/30"
   },
   {
     id: "ART102",
@@ -233,6 +383,12 @@ export const coursesData: Course[] = [
     duration: "8 weeks",
     status: "Open",
     seats: 15,
+    location: "61 ART St, Silver spring, Maryland - 2",
+    phone: "() -3456",
+    email: "photography@serigor.com",
+    price: "$199",
+    startDate: "2024/01/02",
+    endDate: "2024/01/02"
   },
   {
     id: "STAT201",
@@ -242,6 +398,12 @@ export const coursesData: Course[] = [
     duration: "13 weeks",
     status: "Full",
     seats: 0,
+    location: "63 STAT St, Silver spring, Maryland - 2",
+    phone: "() -7890",
+    email: "statistics@serigor.com",
+    price: "$399",
+    startDate: "2024/01/04",
+    endDate: "2024/01/04"
   },
   {
     id: "PSY301",
@@ -251,6 +413,12 @@ export const coursesData: Course[] = [
     duration: "15 weeks",
     status: "Open",
     seats: 30,
+    location: "65 PSY St, Silver spring, Maryland - 2",
+    phone: "() -2345",
+    email: "abnormal@serigor.com",
+    price: "$599",
+    startDate: "2024/01/06",
+    endDate: "2024/01/06"
   },
   {
     id: "MUS201",
@@ -260,6 +428,12 @@ export const coursesData: Course[] = [
     duration: "12 weeks",
     status: "Open",
     seats: 16,
+    location: "67 MUS St, Silver spring, Maryland - 2",
+    phone: "() -6789",
+    email: "music@serigor.com",
+    price: "$399",
+    startDate: "2024/01/08",
+    endDate: "2024/01/08"
   },
   {
     id: "FIN101",
@@ -269,6 +443,12 @@ export const coursesData: Course[] = [
     duration: "10 weeks",
     status: "Full",
     seats: 0,
+    location: "69 FIN St, Silver spring, Maryland - 2",
+    phone: "() -1234",
+    email: "finance@serigor.com",
+    price: "$299",
+    startDate: "2024/01/10",
+    endDate: "2024/01/10"
   },
   {
     id: "ARCH201",
@@ -278,6 +458,12 @@ export const coursesData: Course[] = [
     duration: "16 weeks",
     status: "Open",
     seats: 18,
+    location: "71 ARCH St, Silver spring, Maryland - 2",
+    phone: "() -5678",
+    email: "architectural@serigor.com",
+    price: "$599",
+    startDate: "2024/01/12",
+    endDate: "2024/01/12"
   },
 ];
 

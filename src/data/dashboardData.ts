@@ -31,8 +31,8 @@ export const dashboardTiles: DashboardTile[] = [
     icon: FaGraduationCap,
     title: "Schedule and Update Exams",
     description: "Schedule and update exams.",
-    link: "#",
-    helpLink: "#",
+    link: "exams",
+    helpLink: "exams-help",
   },
   {
     icon: FaUserFriends,
