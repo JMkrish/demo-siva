@@ -24,8 +24,8 @@ export const dashboardTiles: DashboardTile[] = [
     icon: FaGraduationCap,
     title: "Training Courses",
     description: "View accredited training course schedules. Request to attend training here or contact the training provider directly.",
-    link: "#",
-    helpLink: "#",
+    link: "courses",
+    helpLink: "courses-help",
   },
   {
     icon: FaGraduationCap,

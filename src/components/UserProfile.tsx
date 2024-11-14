@@ -83,17 +83,19 @@ export function UserProfile({ onNavigate }: UserProfileProps) {
                       size="sm"
                       colorScheme="blue"
                       width="100%"
-                      onClick={() => window.location.href = tile.link}
+                      onClick={() => onNavigate?.(tile.link)}
                     >
                       Select
                     </Button>
                     <Link
-                      href={tile.helpLink}
+                      onClick={() => onNavigate?.(tile.helpLink)}
                       fontSize="sm"
                       color="gray.500"
                       display="block"
                       textAlign="center"
                       mt={2}
+                      cursor="pointer"
+                      _hover={{ textDecoration: 'none' }}
                     >
                       Help
                     </Link>
