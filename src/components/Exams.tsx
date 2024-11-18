@@ -27,13 +27,15 @@ import {
   CardHeader,
 } from "@chakra-ui/react";
 import { EditIcon, ViewIcon } from "@chakra-ui/icons";
-import { examCategories, scheduledExams } from "../data/examsData";
+import { examCategories, scheduledExams, type Exam } from "../data/examsData";
 import { pastExams } from "../data/pastExamsData";
 import { useState } from "react";
 
 export function Exams() {
   const [currentView, setCurrentView] = useState<"schedule" | "past">("schedule");
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
+    id: "",
     category: "NA",
     examDate: "",
     startTime: "09:30 AM",
@@ -42,6 +44,46 @@ export function Exams() {
     examFees: "",
     registrationLimit: "10"
   });
+
+  const handleEditClick = (exam: Exam) => {
+    console.log("Editing exam:", exam);
+
+    const formattedDate = exam.examDate.split('/').join('-');
+    
+    const formattedTime = exam.startTime.split(' ')[0];
+    
+    const formattedDuration = exam.duration.replace(" Hours", "");
+
+    setFormData({
+      id: exam.id,
+      category: examCategories.find(cat => 
+        cat.label === exam.category || cat.value === exam.category
+      )?.value || "NA",
+      examDate: formattedDate,
+      startTime: formattedTime,
+      location: exam.location,
+      duration: formattedDuration,
+      examFees: exam.examFees || "",
+      registrationLimit: exam.registrationLimit.toString()
+    });
+
+    setIsEditing(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setFormData({
+      id: "",
+      category: "NA",
+      examDate: "",
+      startTime: "09:30 AM",
+      location: "1800 Washington Boulevard, Baltimore, MD 21230",
+      duration: "2",
+      examFees: "",
+      registrationLimit: "10"
+    });
+  };
 
   const renderPastExams = () => (
     <Card>
@@ -157,6 +199,7 @@ export function Exams() {
                     <Select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      isDisabled={isEditing}
                     >
                       {examCategories.map(cat => (
                         <option key={cat.value} value={cat.value}>
@@ -226,10 +269,16 @@ export function Exams() {
                 </Flex>
 
                 <Box>
-                  <Button colorScheme="green" mr={3}>
-                    Schedule
+                  <Button 
+                    colorScheme="green" 
+                    mr={3}
+                  >
+                    {isEditing ? 'Update Exam' : 'Schedule'}
                   </Button>
-                  <Button variant="outline">
+                  <Button 
+                    variant="outline"
+                    onClick={handleCancel}
+                  >
                     Cancel
                   </Button>
                 </Box>
@@ -267,6 +316,10 @@ export function Exams() {
                             size="sm"
                             colorScheme="blue"
                             variant="outline"
+                            onClick={() => {
+                              console.log("Edit button clicked");
+                              handleEditClick(exam);
+                            }}
                           />
                         </Td>
                         <Td>{exam.category}</Td>

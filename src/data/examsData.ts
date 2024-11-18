@@ -7,21 +7,22 @@ export interface Exam {
   duration: string;
   registrationLimit: number;
   registrations: number;
+  examFees?: string;
 }
 
 export const examCategories = [
   { value: "NA", label: "Select a Exam Category" },
+  { value: "IT", label: "Inspector Technician" },
+  { value: "RA", label: "Risk Assessor" },
   { value: "IIT", label: "Inspector Technician Instructor" },
   { value: "IPD", label: "Project Designer Instructor" },
   { value: "IRA", label: "Risk Assessor Instructor" },
   { value: "IS1", label: "Structural Steel Supervisor Instructor" },
   { value: "IS2", label: "Removal and Demolition Supervisor Instructor" },
   { value: "IS4", label: "Maintenance and Repainting Supervisor Instructor" },
-  { value: "IT", label: "Inspector Technician" },
   { value: "IVI", label: "Visual Inspector Instructor" },
   { value: "IW1", label: "Structural Steel Worker Instructor" },
   { value: "IW2", label: "Abatement Worker Instructor" },
-  { value: "RA", label: "Risk Assessor" },
   { value: "S2", label: "Removal and Demolition Supervisor" },
   { value: "SuperInst", label: "Supervisor Instructor" },
   { value: "VI", label: "Visual Inspector" }
