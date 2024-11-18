@@ -30,9 +30,9 @@ export function NavBar({ onNavigate, isLoggedIn, onLogout }: NavBarProps) {
 
   const navItems = [
     {
-      label: isLoggedIn ? "Profile" : "Home",
+      label: isLoggedIn ? "Dashboard" : "Home",
       href: "#",
-      onClick: () => onNavigate(isLoggedIn ? "profile" : "home"),
+      onClick: () => onNavigate(isLoggedIn ? "dashboard" : "home"),
     },
     { label: "Courses", href: "#", onClick: () => onNavigate("courses") },
     {

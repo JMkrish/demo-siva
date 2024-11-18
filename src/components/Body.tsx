@@ -23,7 +23,7 @@ export function Body({ currentView, onNavigate, onLoginSuccess }: BodyProps) {
         );
       case "register":
         return <Registration />;
-      case "profile":
+      case "dashboard":
         return <UserProfile onNavigate={onNavigate} />;
       case "courses":
         return <Courses />;
