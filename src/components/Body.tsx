@@ -7,6 +7,7 @@ import { TrainingCoursesHelp } from "./TrainingCoursesHelp";
 import { ExamsHelp } from "./ExamsHelp";
 import Home from "./Home";
 import { Exams } from "./Exams";
+import { ManageEmployees } from "./ManageEmployees";
 
 interface BodyProps {
   currentView: string;
@@ -33,6 +34,8 @@ export function Body({ currentView, onNavigate, onLoginSuccess }: BodyProps) {
         return <ExamsHelp />;
       case "exams":
         return <Exams />;
+      case "manage-employees":
+        return <ManageEmployees onNavigate={onNavigate} />;
       default:
         return <Home />;
     }
