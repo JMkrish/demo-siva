@@ -25,8 +25,15 @@ import {
   NumberInputField,
   FormErrorMessage,
   CardHeader,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { EditIcon, ViewIcon } from "@chakra-ui/icons";
+import { EditIcon, ViewIcon, WarningIcon, CheckIcon } from "@chakra-ui/icons";
 import { examCategories, scheduledExams, type Exam } from "../data/examsData";
 import { pastExams } from "../data/pastExamsData";
 import { ExamRegistration, activeExaminees } from "../data/examRegistrationsData";
@@ -54,6 +61,29 @@ export function Exams() {
   const [showUpdateScore, setShowUpdateScore] = useState(false);
   const [selectedExaminee, setSelectedExaminee] = useState<ExamRegistration | null>(null);
   const [showPastRegistrations, setShowPastRegistrations] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [examToApprove, setExamToApprove] = useState<ExamRegistration | null>(null);
+  const { 
+    isOpen: isApproveModalOpen, 
+    onOpen: onApproveModalOpen, 
+    onClose: onApproveModalClose 
+  } = useDisclosure();
+  const {
+    isOpen: isCancelModalOpen,
+    onOpen: onCancelModalOpen,
+    onClose: onCancelModalClose
+  } = useDisclosure();
+  const [approvedExaminees, setApprovedExaminees] = useState<string[]>([]);
+  const { 
+    isOpen: isUnapproveModalOpen, 
+    onOpen: onUnapproveModalOpen, 
+    onClose: onUnapproveModalClose 
+  } = useDisclosure();
+  const {
+    isOpen: isUnapproveModalCancelOpen,
+    onOpen: onUnapproveModalCancelOpen,
+    onClose: onUnapproveModalCancelClose
+  } = useDisclosure();
 
   const handleEditClick = (exam: Exam) => {
     console.log("Editing exam:", exam);
@@ -115,6 +145,140 @@ export function Exams() {
     setSelectedExam(exam);
     setShowPastRegistrations(true);
   };
+
+  const handleApproveClick = (examinee: ExamRegistration) => {
+    setExamToApprove(examinee);
+    onApproveModalOpen();
+  };
+
+  const handleConfirmApprove = () => {
+    if (examToApprove) {
+      setApprovedExaminees(prev => [...prev, examToApprove.examId]);
+    }
+    onApproveModalClose();
+    setExamToApprove(null);
+  };
+
+  const handleCancelApprove = () => {
+    onApproveModalClose();
+    onCancelModalOpen();
+  };
+
+  const handleUnapproveClick = (examinee: ExamRegistration) => {
+    setExamToApprove(examinee);
+    onUnapproveModalOpen();
+  };
+
+  const handleConfirmUnapprove = () => {
+    if (examToApprove) {
+      setApprovedExaminees(prev => prev.filter(id => id !== examToApprove.examId));
+    }
+    onUnapproveModalClose();
+    setExamToApprove(null);
+  };
+
+  const handleCancelUnapprove = () => {
+    onUnapproveModalClose();
+    onUnapproveModalCancelOpen();
+  };
+
+  const ApproveConfirmationModal = () => (
+    <Modal isOpen={isApproveModalOpen} onClose={onApproveModalClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader textAlign="center">
+          <VStack spacing={4}>
+            <WarningIcon boxSize="50px" color="orange.300" />
+            <Text>Are you sure?</Text>
+          </VStack>
+        </ModalHeader>
+        <ModalBody textAlign="center">
+          This user will be approved for this exam schedule!
+        </ModalBody>
+        <ModalFooter justifyContent="center">
+          <ButtonGroup spacing={4}>
+            <Button colorScheme="gray" onClick={handleCancelApprove}>
+              No, cancel!
+            </Button>
+            <Button colorScheme="red" onClick={handleConfirmApprove}>
+              Yes, approve!
+            </Button>
+          </ButtonGroup>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+
+  const CancelConfirmationModal = () => (
+    <Modal isOpen={isCancelModalOpen} onClose={onCancelModalClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader textAlign="center">
+          <VStack spacing={4}>
+            <CheckIcon boxSize="50px" color="green.500" />
+            <Text>Alright</Text>
+          </VStack>
+        </ModalHeader>
+        <ModalBody textAlign="center">
+          Nothing changed!
+        </ModalBody>
+        <ModalFooter justifyContent="center">
+          <Button colorScheme="green" onClick={onCancelModalClose}>
+            OK
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+
+  const UnapproveConfirmationModal = () => (
+    <Modal isOpen={isUnapproveModalOpen} onClose={onUnapproveModalClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader textAlign="center">
+          <VStack spacing={4}>
+            <WarningIcon boxSize="50px" color="orange.300" />
+            <Text>Are you sure?</Text>
+          </VStack>
+        </ModalHeader>
+        <ModalBody textAlign="center">
+          This user will be unapproved for this exam schedule!
+        </ModalBody>
+        <ModalFooter justifyContent="center">
+          <ButtonGroup spacing={4}>
+            <Button colorScheme="gray" onClick={handleCancelUnapprove}>
+              No, cancel!
+            </Button>
+            <Button colorScheme="red" onClick={handleConfirmUnapprove}>
+              Yes, unapprove!
+            </Button>
+          </ButtonGroup>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+
+  const UnapproveConfirmationCancelModal = () => (
+    <Modal isOpen={isUnapproveModalCancelOpen} onClose={onUnapproveModalCancelClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader textAlign="center">
+          <VStack spacing={4}>
+            <CheckIcon boxSize="50px" color="green.500" />
+            <Text>Alright</Text>
+          </VStack>
+        </ModalHeader>
+        <ModalBody textAlign="center">
+          Nothing changed!
+        </ModalBody>
+        <ModalFooter justifyContent="center">
+          <Button colorScheme="green" onClick={onUnapproveModalCancelClose}>
+            OK
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
 
   const renderPastExams = () => (
     <Card>
@@ -234,7 +398,9 @@ export function Exams() {
                   <Th>Start Time</Th>
                   <Th>Exam Category</Th>
                   <Th>Exam Result</Th>
-                  <Th>Actions</Th>
+                  <Th>Approve</Th>
+                  <Th>Update Score</Th>
+                  <Th>Delete</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -251,25 +417,40 @@ export function Exams() {
                     <Td>{examinee.examCategory}</Td>
                     <Td>{examinee.examResult}</Td>
                     <Td>
-                      <ButtonGroup size="sm">
+                      {approvedExaminees.includes(examinee.examId) ? (
                         <Button
+                          size="sm"
+                          colorScheme="green"
+                          leftIcon={<CheckIcon />}
+                          onClick={() => handleUnapproveClick(examinee)}
+                        />
+                      ) : (
+                        <Button
+                          size="sm"
                           colorScheme="yellow"
                           title="Approve"
+                          onClick={() => handleApproveClick(examinee)}
                         >
                           !
                         </Button>
-                        <Button
-                          colorScheme="green"
-                          onClick={() => handleUpdateScore(examinee)}
-                        >
-                          Update Score
-                        </Button>
-                        <Button
-                          colorScheme="red"
-                        >
-                          Delete
-                        </Button>
-                      </ButtonGroup>
+                      )}
+                    </Td>
+                    <Td>
+                      <Button
+                        size="sm"
+                        colorScheme="green"
+                        onClick={() => handleUpdateScore(examinee)}
+                      >
+                        Update Score
+                      </Button>
+                    </Td>
+                    <Td>
+                      <Button
+                        size="sm"
+                        colorScheme="red"
+                      >
+                        Delete
+                      </Button>
                     </Td>
                   </Tr>
                 ))}
@@ -397,6 +578,11 @@ export function Exams() {
 
   return (
     <Container maxW="6xl" className="transition animated fadeIn">
+      <ApproveConfirmationModal />
+      <CancelConfirmationModal />
+      <UnapproveConfirmationModal />
+      <UnapproveConfirmationCancelModal />
+      
       {showUpdateScore && selectedExaminee && selectedExam ? (
         <UpdateScore
           examinee={selectedExaminee}
